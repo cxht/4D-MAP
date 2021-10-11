@@ -1,4 +1,4 @@
-# qcurl
+# MPS
 
 ## Usage
 

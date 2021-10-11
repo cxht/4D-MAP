@@ -1,0 +1,515 @@
+2021/10/08 14:50:29.557910 [22;36m INFO[0m initial log succ. - config.go:191
+2021/10/08 14:50:29.557935 [22;36m INFO[0m 
+    __    ___    __
+   / /   /   |  / /
+  / /   / /| | / /
+ / /___/ ___ |/ /___
+/_____/_/  |_/_____/
+ - config.go:194
+2021/10/08 14:50:29.558014 [22;36m INFO[0m load conf file succ. filename=lalserver.conf.json, raw content={ "# doc of config": "https://pengrl.com/lal/#/ConfigBrief", "conf_version": "v0.2.2", "rtmp": { "enable": true, "addr": ":1935", "gop_num": 0, "merge_write_size": 0 }, "default_http": { "http_listen_addr": ":8080", "https_listen_addr": ":4433", "https_cert_file": "./conf/cert.pem", "https_key_file": "./conf/key.pem" }, "httpflv": { "enable": true, "enable_https": false, "url_pattern": "/live/", "gop_num": 0 }, "hls": { "enable": true, "enable_https": false, "url_pattern": "/hls/", "out_path": "/tmp/lal/hls/", "fragment_duration_ms": 3000, "fragment_num": 6, "cleanup_mode": 1, "use_memory_as_disk_flag": false }, "httpts": { "enable": true, "enable_https":false, "url_pattern": "/live/" }, "rtsp": { "enable": true, "addr": ":5544" }, "record": { "enable_flv": false, "flv_out_path": "/tmp/lal/flv/", "enable_mpegts": false, "mpegts_out_path": "/tmp/lal/mpegts" }, "relay_push": { "enable": false, "addr_list":[ ] }, "relay_pull": { "enable": false, "addr": "" }, "http_api": { "enable": true, "addr": ":8083" }, "server_id": "1", "http_notify": { "enable": false, "update_interval_sec": 5, "on_server_start": "http://127.0.0.1:10101/on_server_start", "on_update": "http://127.0.0.1:10101/on_update", "on_pub_start": "http://127.0.0.1:10101/on_pub_start", "on_pub_stop": "http://127.0.0.1:10101/on_pub_stop", "on_sub_start": "http://127.0.0.1:10101/on_sub_start", "on_sub_stop": "http://127.0.0.1:10101/on_sub_stop", "on_rtmp_connect": "http://127.0.0.1:10101/on_rtmp_connect" }, "pprof": { "enable": true, "addr": ":8084" }, "log": { "level": 1, "filename": "./logs/lalserver.log", "is_to_stdout": true, "is_rotate_daily": true, "short_file_flag": true, "assert_behavior": 1 } }  parsed=&{ConfVersion:v0.2.2 RTMPConfig:{Enable:true Addr::1935 GOPNum:0 MergeWriteSize:0} DefaultHTTPConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem}} HTTPFLVConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/} GOPNum:0} HLSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/hls/} UseMemoryAsDiskFlag:false MuxerConfig:{OutPath:/tmp/lal/hls/ FragmentDurationMS:3000 FragmentNum:6 CleanupMode:1}} HTTPTSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/}} RTSPConfig:{Enable:true Addr::5544} RecordConfig:{EnableFLV:false FLVOutPath:/tmp/lal/flv/ EnableMPEGTS:false MPEGTSOutPath:/tmp/lal/mpegts} RelayPushConfig:{Enable:false AddrList:[]} RelayPullConfig:{Enable:false Addr:} HTTPAPIConfig:{Enable:true Addr::8083} ServerID:1 HTTPNotifyConfig:{Enable:false UpdateIntervalSec:5 OnServerStart:http://127.0.0.1:10101/on_server_start OnUpdate:http://127.0.0.1:10101/on_update OnPubStart:http://127.0.0.1:10101/on_pub_start OnPubStop:http://127.0.0.1:10101/on_pub_stop OnSubStart:http://127.0.0.1:10101/on_sub_start OnSubStop:http://127.0.0.1:10101/on_sub_stop OnRTMPConnect:http://127.0.0.1:10101/on_rtmp_connect} PProfConfig:{Enable:true Addr::8084} LogConfig:{Level:1 Filename:./logs/lalserver.log IsToStdout:true IsRotateDaily:true ShortFileFlag:true TimestampFlag:true TimestampWithMSFlag:true LevelFlag:true AssertBehavior:1}} - config.go:277
+2021/10/08 14:50:29.558047 [22;36m INFO[0m wd: /home/welevens/cx/qcurl/server - entry.go:39
+2021/10/08 14:50:29.558053 [22;36m INFO[0m args: /tmp/go-build573868280/b001/exe/qcurlsimpleserver - entry.go:40
+2021/10/08 14:50:29.558063 [22;36m INFO[0m bininfo: GitTag=unknown. GitCommitLog=unknown. GitStatus=unknown. BuildTime=unknown. GoVersion=unknown. runtime=linux/amd64. - entry.go:41
+2021/10/08 14:50:29.558069 [22;36m INFO[0m version: lal v0.22.0 (github.com/q191201771/lal) - entry.go:42
+2021/10/08 14:50:29.558076 [22;36m INFO[0m github: https://github.com/q191201771/lal - entry.go:43
+2021/10/08 14:50:29.558081 [22;36m INFO[0m doc: https://pengrl.com/lal - entry.go:44
+2021/10/08 14:50:29.589110 [22;36m INFO[0m start rtmp server listen. addr=0.0.0.0:1935 - server.go:56
+2021/10/08 14:50:38.944762 [22;34mDEBUG[0m [NAZACONN1] lifecycle new connection. net.Conn=0xc00012e480, naza.Connection=0xc0000de210 - connection.go:158
+2021/10/08 14:50:38.945033 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 14:50:38.945129 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 14:50:38.945188 [22;36m INFO[0m [RTMPPUBSUB1] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 14:50:43.055587 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C2. - server_session.go:197
+2021/10/08 14:50:54.103775 [22;36m INFO[0m [RTMPPUBSUB1] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 14:50:54.103991 [22;36m INFO[0m [RTMPPUBSUB1] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 14:50:56.318721 [22;36m INFO[0m [RTMPPUBSUB1] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 14:50:56.319027 [22;36m INFO[0m [RTMPPUBSUB1] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 14:50:56.319184 [22;36m INFO[0m [RTMPPUBSUB1] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 14:51:28.731687 [22;34mDEBUG[0m [NAZACONN1] close once. err=NetworkIdleTimeout: No recent network activity. - connection.go:424
+2021/10/08 14:51:28.731888 [22;36m INFO[0m [RTMPPUBSUB1] rtmp loop done. err=NetworkIdleTimeout: No recent network activity. - server.go:86
+2021/10/08 14:51:53.392488 [22;34mDEBUG[0m [NAZACONN2] lifecycle new connection. net.Conn=0xc0004e6000, naza.Connection=0xc00013c4d0 - connection.go:158
+2021/10/08 14:51:53.392541 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 14:51:53.392554 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 14:51:53.392562 [22;36m INFO[0m [RTMPPUBSUB2] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 14:51:57.406296 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C2. - server_session.go:197
+2021/10/08 14:51:57.847688 [22;36m INFO[0m [RTMPPUBSUB2] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 14:51:57.847823 [22;36m INFO[0m [RTMPPUBSUB2] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 14:51:58.414899 [22;36m INFO[0m [RTMPPUBSUB2] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 14:51:58.415042 [22;36m INFO[0m [RTMPPUBSUB2] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 14:51:58.415201 [22;36m INFO[0m [RTMPPUBSUB2] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 14:52:00.392656 [22;36m INFO[0m [RTMPPUBSUB2] < R createStream(). - server_session.go:375
+2021/10/08 14:52:00.392721 [22;36m INFO[0m [RTMPPUBSUB2] > W _result(). - server_session.go:376
+2021/10/08 14:52:00.574622 [22;34mDEBUG[0m [RTMPPUBSUB2] pubType= - server_session.go:403
+2021/10/08 14:52:00.574669 [22;36m INFO[0m [RTMPPUBSUB2] < R publish('') - server_session.go:404
+2021/10/08 14:52:00.574690 [22;36m INFO[0m [RTMPPUBSUB2] > W onStatus('NetStream.Publish.Start'). - server_session.go:406
+2021/10/08 14:52:00.574837 [22;36m INFO[0m [GROUP1] lifecycle new group. group=0xc00018c000, appName=, streamName= - group.go:137
+2021/10/08 14:52:00.574895 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] add PubSession into group. - group.go:292
+2021/10/08 14:52:00.575202 [22;36m INFO[0m [HLSMUXER1] lifecycle new hls muxer. muxer=0xc0004fe000, streamName= - muxer.go:119
+2021/10/08 14:52:00.575228 [22;36m INFO[0m [HLSMUXER1] start hls muxer. - muxer.go:124
+2021/10/08 14:52:01.245712 [22;34mDEBUG[0m [GROUP1] cache rtmp metadata. size:457 - gop_cache.go:86
+2021/10/08 14:52:01.246175 [22;34mDEBUG[0m [GROUP1] cache httpflv metadata. size:460 - gop_cache.go:86
+2021/10/08 14:52:01.246245 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 14:52:01.246288 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 14:52:01.246341 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 14:52:01.246371 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 14:52:01.246553 [22;34mDEBUG[0m reserve. newLen=69632(0, 0), need=(48678 -> 65536), cap=(4096 -> 69632) - stream.go:75
+2021/10/08 14:53:12.527023 [22;34mDEBUG[0m [NAZACONN2] close once. err=NetworkIdleTimeout: No recent network activity. - connection.go:424
+2021/10/08 14:53:12.527175 [22;36m INFO[0m [RTMPPUBSUB2] rtmp loop done. err=NetworkIdleTimeout: No recent network activity. - server.go:86
+2021/10/08 14:53:12.527216 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] del rtmp PubSession from group. - group.go:673
+2021/10/08 14:53:12.527243 [22;36m INFO[0m [HLSMUXER1] lifecycle dispose hls muxer. - muxer.go:129
+2021/10/08 15:17:07.806811 [22;36m INFO[0m initial log succ. - config.go:191
+2021/10/08 15:17:07.806842 [22;36m INFO[0m 
+    __    ___    __
+   / /   /   |  / /
+  / /   / /| | / /
+ / /___/ ___ |/ /___
+/_____/_/  |_/_____/
+ - config.go:194
+2021/10/08 15:17:07.806898 [22;36m INFO[0m load conf file succ. filename=lalserver.conf.json, raw content={ "# doc of config": "https://pengrl.com/lal/#/ConfigBrief", "conf_version": "v0.2.2", "rtmp": { "enable": true, "addr": ":1935", "gop_num": 0, "merge_write_size": 0 }, "default_http": { "http_listen_addr": ":8080", "https_listen_addr": ":4433", "https_cert_file": "./conf/cert.pem", "https_key_file": "./conf/key.pem" }, "httpflv": { "enable": true, "enable_https": false, "url_pattern": "/live/", "gop_num": 0 }, "hls": { "enable": true, "enable_https": false, "url_pattern": "/hls/", "out_path": "/tmp/lal/hls/", "fragment_duration_ms": 3000, "fragment_num": 6, "cleanup_mode": 1, "use_memory_as_disk_flag": false }, "httpts": { "enable": true, "enable_https":false, "url_pattern": "/live/" }, "rtsp": { "enable": true, "addr": ":5544" }, "record": { "enable_flv": false, "flv_out_path": "/tmp/lal/flv/", "enable_mpegts": false, "mpegts_out_path": "/tmp/lal/mpegts" }, "relay_push": { "enable": false, "addr_list":[ ] }, "relay_pull": { "enable": false, "addr": "" }, "http_api": { "enable": true, "addr": ":8083" }, "server_id": "1", "http_notify": { "enable": false, "update_interval_sec": 5, "on_server_start": "http://127.0.0.1:10101/on_server_start", "on_update": "http://127.0.0.1:10101/on_update", "on_pub_start": "http://127.0.0.1:10101/on_pub_start", "on_pub_stop": "http://127.0.0.1:10101/on_pub_stop", "on_sub_start": "http://127.0.0.1:10101/on_sub_start", "on_sub_stop": "http://127.0.0.1:10101/on_sub_stop", "on_rtmp_connect": "http://127.0.0.1:10101/on_rtmp_connect" }, "pprof": { "enable": true, "addr": ":8084" }, "log": { "level": 1, "filename": "./logs/lalserver.log", "is_to_stdout": true, "is_rotate_daily": true, "short_file_flag": true, "assert_behavior": 1 } }  parsed=&{ConfVersion:v0.2.2 RTMPConfig:{Enable:true Addr::1935 GOPNum:0 MergeWriteSize:0} DefaultHTTPConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem}} HTTPFLVConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/} GOPNum:0} HLSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/hls/} UseMemoryAsDiskFlag:false MuxerConfig:{OutPath:/tmp/lal/hls/ FragmentDurationMS:3000 FragmentNum:6 CleanupMode:1}} HTTPTSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/}} RTSPConfig:{Enable:true Addr::5544} RecordConfig:{EnableFLV:false FLVOutPath:/tmp/lal/flv/ EnableMPEGTS:false MPEGTSOutPath:/tmp/lal/mpegts} RelayPushConfig:{Enable:false AddrList:[]} RelayPullConfig:{Enable:false Addr:} HTTPAPIConfig:{Enable:true Addr::8083} ServerID:1 HTTPNotifyConfig:{Enable:false UpdateIntervalSec:5 OnServerStart:http://127.0.0.1:10101/on_server_start OnUpdate:http://127.0.0.1:10101/on_update OnPubStart:http://127.0.0.1:10101/on_pub_start OnPubStop:http://127.0.0.1:10101/on_pub_stop OnSubStart:http://127.0.0.1:10101/on_sub_start OnSubStop:http://127.0.0.1:10101/on_sub_stop OnRTMPConnect:http://127.0.0.1:10101/on_rtmp_connect} PProfConfig:{Enable:true Addr::8084} LogConfig:{Level:1 Filename:./logs/lalserver.log IsToStdout:true IsRotateDaily:true ShortFileFlag:true TimestampFlag:true TimestampWithMSFlag:true LevelFlag:true AssertBehavior:1}} - config.go:277
+2021/10/08 15:17:07.806932 [22;36m INFO[0m wd: /home/welevens/cx/qcurl/server - entry.go:39
+2021/10/08 15:17:07.806937 [22;36m INFO[0m args: /tmp/go-build2773981611/b001/exe/qcurlsimpleserver - entry.go:40
+2021/10/08 15:17:07.806942 [22;36m INFO[0m bininfo: GitTag=unknown. GitCommitLog=unknown. GitStatus=unknown. BuildTime=unknown. GoVersion=unknown. runtime=linux/amd64. - entry.go:41
+2021/10/08 15:17:07.806950 [22;36m INFO[0m version: lal v0.22.0 (github.com/q191201771/lal) - entry.go:42
+2021/10/08 15:17:07.806955 [22;36m INFO[0m github: https://github.com/q191201771/lal - entry.go:43
+2021/10/08 15:17:07.806959 [22;36m INFO[0m doc: https://pengrl.com/lal - entry.go:44
+2021/10/08 15:17:07.837909 [22;36m INFO[0m start rtmp server listen. addr=0.0.0.0:1935 - server.go:56
+2021/10/08 15:17:45.908138 [22;34mDEBUG[0m [NAZACONN1] lifecycle new connection. net.Conn=0xc0000ce480, naza.Connection=0xc0003ea210 - connection.go:158
+2021/10/08 15:17:45.908236 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:17:45.908263 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:17:45.908286 [22;36m INFO[0m [RTMPPUBSUB1] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:17:47.118869 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C2. - server_session.go:197
+2021/10/08 15:17:47.704574 [22;36m INFO[0m [RTMPPUBSUB1] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:17:47.704661 [22;36m INFO[0m [RTMPPUBSUB1] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:17:48.505651 [22;36m INFO[0m [RTMPPUBSUB1] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:17:48.953783 [22;36m INFO[0m [RTMPPUBSUB1] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:17:48.954544 [22;36m INFO[0m [RTMPPUBSUB1] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:17:57.288430 [22;34mDEBUG[0m [NAZACONN2] lifecycle new connection. net.Conn=0xc000152b40, naza.Connection=0xc0004de000 - connection.go:158
+2021/10/08 15:17:57.288524 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:17:57.288543 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:17:57.288555 [22;36m INFO[0m [RTMPPUBSUB2] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:17:57.289053 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C2. - server_session.go:197
+2021/10/08 15:17:57.289232 [22;36m INFO[0m [RTMPPUBSUB2] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:17:57.289263 [22;36m INFO[0m [RTMPPUBSUB2] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:17:57.289332 [22;36m INFO[0m [RTMPPUBSUB2] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:17:57.289421 [22;36m INFO[0m [RTMPPUBSUB2] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:17:57.289509 [22;36m INFO[0m [RTMPPUBSUB2] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:17:57.289728 [22;36m INFO[0m [RTMPPUBSUB2] < R createStream(). - server_session.go:375
+2021/10/08 15:17:57.289748 [22;36m INFO[0m [RTMPPUBSUB2] > W _result(). - server_session.go:376
+2021/10/08 15:17:57.289977 [22;34mDEBUG[0m [RTMPPUBSUB2] pubType= - server_session.go:403
+2021/10/08 15:17:57.290009 [22;36m INFO[0m [RTMPPUBSUB2] < R publish('') - server_session.go:404
+2021/10/08 15:17:57.290035 [22;36m INFO[0m [RTMPPUBSUB2] > W onStatus('NetStream.Publish.Start'). - server_session.go:406
+2021/10/08 15:17:57.290144 [22;36m INFO[0m [GROUP1] lifecycle new group. group=0xc000136000, appName=, streamName= - group.go:137
+2021/10/08 15:17:57.290175 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] add PubSession into group. - group.go:292
+2021/10/08 15:17:57.290674 [22;36m INFO[0m [HLSMUXER1] lifecycle new hls muxer. muxer=0xc0004b8400, streamName= - muxer.go:119
+2021/10/08 15:17:57.290713 [22;36m INFO[0m [HLSMUXER1] start hls muxer. - muxer.go:124
+2021/10/08 15:17:57.291507 [22;34mDEBUG[0m [GROUP1] cache rtmp metadata. size:457 - gop_cache.go:86
+2021/10/08 15:17:57.291540 [22;34mDEBUG[0m [GROUP1] cache httpflv metadata. size:460 - gop_cache.go:86
+2021/10/08 15:17:57.291579 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:17:57.291602 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:17:57.291634 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:17:57.291655 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:17:57.291747 [22;34mDEBUG[0m reserve. newLen=69632(0, 0), need=(48678 -> 65536), cap=(4096 -> 69632) - stream.go:75
+2021/10/08 15:18:22.013424 [22;36m INFO[0m initial log succ. - config.go:191
+2021/10/08 15:18:22.013464 [22;36m INFO[0m 
+    __    ___    __
+   / /   /   |  / /
+  / /   / /| | / /
+ / /___/ ___ |/ /___
+/_____/_/  |_/_____/
+ - config.go:194
+2021/10/08 15:18:22.013561 [22;36m INFO[0m load conf file succ. filename=lalserver.conf.json, raw content={ "# doc of config": "https://pengrl.com/lal/#/ConfigBrief", "conf_version": "v0.2.2", "rtmp": { "enable": true, "addr": ":1935", "gop_num": 0, "merge_write_size": 0 }, "default_http": { "http_listen_addr": ":8080", "https_listen_addr": ":4433", "https_cert_file": "./conf/cert.pem", "https_key_file": "./conf/key.pem" }, "httpflv": { "enable": true, "enable_https": false, "url_pattern": "/live/", "gop_num": 0 }, "hls": { "enable": true, "enable_https": false, "url_pattern": "/hls/", "out_path": "/tmp/lal/hls/", "fragment_duration_ms": 3000, "fragment_num": 6, "cleanup_mode": 1, "use_memory_as_disk_flag": false }, "httpts": { "enable": true, "enable_https":false, "url_pattern": "/live/" }, "rtsp": { "enable": true, "addr": ":5544" }, "record": { "enable_flv": false, "flv_out_path": "/tmp/lal/flv/", "enable_mpegts": false, "mpegts_out_path": "/tmp/lal/mpegts" }, "relay_push": { "enable": false, "addr_list":[ ] }, "relay_pull": { "enable": false, "addr": "" }, "http_api": { "enable": true, "addr": ":8083" }, "server_id": "1", "http_notify": { "enable": false, "update_interval_sec": 5, "on_server_start": "http://127.0.0.1:10101/on_server_start", "on_update": "http://127.0.0.1:10101/on_update", "on_pub_start": "http://127.0.0.1:10101/on_pub_start", "on_pub_stop": "http://127.0.0.1:10101/on_pub_stop", "on_sub_start": "http://127.0.0.1:10101/on_sub_start", "on_sub_stop": "http://127.0.0.1:10101/on_sub_stop", "on_rtmp_connect": "http://127.0.0.1:10101/on_rtmp_connect" }, "pprof": { "enable": true, "addr": ":8084" }, "log": { "level": 1, "filename": "./logs/lalserver.log", "is_to_stdout": true, "is_rotate_daily": true, "short_file_flag": true, "assert_behavior": 1 } }  parsed=&{ConfVersion:v0.2.2 RTMPConfig:{Enable:true Addr::1935 GOPNum:0 MergeWriteSize:0} DefaultHTTPConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem}} HTTPFLVConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/} GOPNum:0} HLSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/hls/} UseMemoryAsDiskFlag:false MuxerConfig:{OutPath:/tmp/lal/hls/ FragmentDurationMS:3000 FragmentNum:6 CleanupMode:1}} HTTPTSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/}} RTSPConfig:{Enable:true Addr::5544} RecordConfig:{EnableFLV:false FLVOutPath:/tmp/lal/flv/ EnableMPEGTS:false MPEGTSOutPath:/tmp/lal/mpegts} RelayPushConfig:{Enable:false AddrList:[]} RelayPullConfig:{Enable:false Addr:} HTTPAPIConfig:{Enable:true Addr::8083} ServerID:1 HTTPNotifyConfig:{Enable:false UpdateIntervalSec:5 OnServerStart:http://127.0.0.1:10101/on_server_start OnUpdate:http://127.0.0.1:10101/on_update OnPubStart:http://127.0.0.1:10101/on_pub_start OnPubStop:http://127.0.0.1:10101/on_pub_stop OnSubStart:http://127.0.0.1:10101/on_sub_start OnSubStop:http://127.0.0.1:10101/on_sub_stop OnRTMPConnect:http://127.0.0.1:10101/on_rtmp_connect} PProfConfig:{Enable:true Addr::8084} LogConfig:{Level:1 Filename:./logs/lalserver.log IsToStdout:true IsRotateDaily:true ShortFileFlag:true TimestampFlag:true TimestampWithMSFlag:true LevelFlag:true AssertBehavior:1}} - config.go:277
+2021/10/08 15:18:22.013619 [22;36m INFO[0m wd: /home/welevens/cx/qcurl/server - entry.go:39
+2021/10/08 15:18:22.013627 [22;36m INFO[0m args: /tmp/go-build2049769171/b001/exe/qcurlsimpleserver - entry.go:40
+2021/10/08 15:18:22.013634 [22;36m INFO[0m bininfo: GitTag=unknown. GitCommitLog=unknown. GitStatus=unknown. BuildTime=unknown. GoVersion=unknown. runtime=linux/amd64. - entry.go:41
+2021/10/08 15:18:22.013639 [22;36m INFO[0m version: lal v0.22.0 (github.com/q191201771/lal) - entry.go:42
+2021/10/08 15:18:22.013647 [22;36m INFO[0m github: https://github.com/q191201771/lal - entry.go:43
+2021/10/08 15:18:22.013653 [22;36m INFO[0m doc: https://pengrl.com/lal - entry.go:44
+2021/10/08 15:18:22.033771 [22;36m INFO[0m start rtmp server listen. addr=0.0.0.0:1935 - server.go:56
+2021/10/08 15:18:24.266244 [22;34mDEBUG[0m [NAZACONN1] lifecycle new connection. net.Conn=0xc0000c4000, naza.Connection=0xc0003282c0 - connection.go:158
+2021/10/08 15:18:24.266304 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:18:24.266322 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:18:24.266330 [22;36m INFO[0m [RTMPPUBSUB1] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:18:24.266644 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C2. - server_session.go:197
+2021/10/08 15:18:24.267206 [22;36m INFO[0m [RTMPPUBSUB1] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:18:24.267240 [22;36m INFO[0m [RTMPPUBSUB1] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:18:24.267341 [22;36m INFO[0m [RTMPPUBSUB1] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:18:24.267430 [22;36m INFO[0m [RTMPPUBSUB1] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:18:24.267852 [22;36m INFO[0m [RTMPPUBSUB1] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:18:24.268052 [22;36m INFO[0m [RTMPPUBSUB1] < R createStream(). - server_session.go:375
+2021/10/08 15:18:24.268071 [22;36m INFO[0m [RTMPPUBSUB1] > W _result(). - server_session.go:376
+2021/10/08 15:18:24.268279 [22;34mDEBUG[0m [RTMPPUBSUB1] pubType= - server_session.go:403
+2021/10/08 15:18:24.268298 [22;36m INFO[0m [RTMPPUBSUB1] < R publish('') - server_session.go:404
+2021/10/08 15:18:24.268313 [22;36m INFO[0m [RTMPPUBSUB1] > W onStatus('NetStream.Publish.Start'). - server_session.go:406
+2021/10/08 15:18:24.268426 [22;36m INFO[0m [GROUP1] lifecycle new group. group=0xc00018c000, appName=, streamName= - group.go:137
+2021/10/08 15:18:24.268454 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB1] add PubSession into group. - group.go:292
+2021/10/08 15:18:24.268514 [22;36m INFO[0m [HLSMUXER1] lifecycle new hls muxer. muxer=0xc00017a000, streamName= - muxer.go:119
+2021/10/08 15:18:24.268525 [22;36m INFO[0m [HLSMUXER1] start hls muxer. - muxer.go:124
+2021/10/08 15:18:24.268677 [22;34mDEBUG[0m [GROUP1] cache rtmp metadata. size:457 - gop_cache.go:86
+2021/10/08 15:18:24.268700 [22;34mDEBUG[0m [GROUP1] cache httpflv metadata. size:460 - gop_cache.go:86
+2021/10/08 15:18:24.268724 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:18:24.268745 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:18:24.268775 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:18:24.268793 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:18:24.268857 [22;34mDEBUG[0m reserve. newLen=69632(0, 0), need=(48678 -> 65536), cap=(4096 -> 69632) - stream.go:75
+2021/10/08 15:19:21.670961 [22;31mERROR[0m [lal.avc: fxxk] iterate nalu failed. err=STREAMER1, payload=00000000  17 02 00 00 00                                    |.....|
+ - streamer.go:133
+2021/10/08 15:19:21.671138 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:19:21.671211 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:19:21.671276 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:19:21.671333 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:20:19.072747 [22;31mERROR[0m [lal.avc: fxxk] iterate nalu failed. err=STREAMER1, payload=00000000  17 02 00 00 00                                    |.....|
+ - streamer.go:133
+2021/10/08 15:20:19.072923 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:20:19.073000 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:20:19.073157 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:20:19.073219 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:21:16.474966 [22;31mERROR[0m [lal.avc: fxxk] iterate nalu failed. err=STREAMER1, payload=00000000  17 02 00 00 00                                    |.....|
+ - streamer.go:133
+2021/10/08 15:21:16.475163 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:21:16.475249 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:21:16.475381 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:21:16.475445 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:22:13.876696 [22;31mERROR[0m [lal.avc: fxxk] iterate nalu failed. err=STREAMER1, payload=00000000  17 02 00 00 00                                    |.....|
+ - streamer.go:133
+2021/10/08 15:22:13.876857 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:22:13.876929 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:22:13.877052 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:22:13.877117 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:23:11.279284 [22;31mERROR[0m [lal.avc: fxxk] iterate nalu failed. err=STREAMER1, payload=00000000  17 02 00 00 00                                    |.....|
+ - streamer.go:133
+2021/10/08 15:23:11.279488 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:23:11.279612 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:23:11.279708 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:23:11.279775 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:26:46.533177 [22;36m INFO[0m initial log succ. - config.go:191
+2021/10/08 15:26:46.564050 [22;36m INFO[0m 
+    __    ___    __
+   / /   /   |  / /
+  / /   / /| | / /
+ / /___/ ___ |/ /___
+/_____/_/  |_/_____/
+ - config.go:194
+2021/10/08 15:26:46.564345 [22;36m INFO[0m load conf file succ. filename=lalserver.conf.json, raw content={ "# doc of config": "https://pengrl.com/lal/#/ConfigBrief", "conf_version": "v0.2.2", "rtmp": { "enable": true, "addr": ":1935", "gop_num": 0, "merge_write_size": 0 }, "default_http": { "http_listen_addr": ":8080", "https_listen_addr": ":4433", "https_cert_file": "./conf/cert.pem", "https_key_file": "./conf/key.pem" }, "httpflv": { "enable": true, "enable_https": false, "url_pattern": "/live/", "gop_num": 0 }, "hls": { "enable": true, "enable_https": false, "url_pattern": "/hls/", "out_path": "/tmp/lal/hls/", "fragment_duration_ms": 3000, "fragment_num": 6, "cleanup_mode": 1, "use_memory_as_disk_flag": false }, "httpts": { "enable": true, "enable_https":false, "url_pattern": "/live/" }, "rtsp": { "enable": true, "addr": ":5544" }, "record": { "enable_flv": false, "flv_out_path": "/tmp/lal/flv/", "enable_mpegts": false, "mpegts_out_path": "/tmp/lal/mpegts" }, "relay_push": { "enable": false, "addr_list":[ ] }, "relay_pull": { "enable": false, "addr": "" }, "http_api": { "enable": true, "addr": ":8083" }, "server_id": "1", "http_notify": { "enable": false, "update_interval_sec": 5, "on_server_start": "http://127.0.0.1:10101/on_server_start", "on_update": "http://127.0.0.1:10101/on_update", "on_pub_start": "http://127.0.0.1:10101/on_pub_start", "on_pub_stop": "http://127.0.0.1:10101/on_pub_stop", "on_sub_start": "http://127.0.0.1:10101/on_sub_start", "on_sub_stop": "http://127.0.0.1:10101/on_sub_stop", "on_rtmp_connect": "http://127.0.0.1:10101/on_rtmp_connect" }, "pprof": { "enable": true, "addr": ":8084" }, "log": { "level": 1, "filename": "./logs/lalserver.log", "is_to_stdout": true, "is_rotate_daily": true, "short_file_flag": true, "assert_behavior": 1 } }  parsed=&{ConfVersion:v0.2.2 RTMPConfig:{Enable:true Addr::1935 GOPNum:0 MergeWriteSize:0} DefaultHTTPConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem}} HTTPFLVConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/} GOPNum:0} HLSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/hls/} UseMemoryAsDiskFlag:false MuxerConfig:{OutPath:/tmp/lal/hls/ FragmentDurationMS:3000 FragmentNum:6 CleanupMode:1}} HTTPTSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/}} RTSPConfig:{Enable:true Addr::5544} RecordConfig:{EnableFLV:false FLVOutPath:/tmp/lal/flv/ EnableMPEGTS:false MPEGTSOutPath:/tmp/lal/mpegts} RelayPushConfig:{Enable:false AddrList:[]} RelayPullConfig:{Enable:false Addr:} HTTPAPIConfig:{Enable:true Addr::8083} ServerID:1 HTTPNotifyConfig:{Enable:false UpdateIntervalSec:5 OnServerStart:http://127.0.0.1:10101/on_server_start OnUpdate:http://127.0.0.1:10101/on_update OnPubStart:http://127.0.0.1:10101/on_pub_start OnPubStop:http://127.0.0.1:10101/on_pub_stop OnSubStart:http://127.0.0.1:10101/on_sub_start OnSubStop:http://127.0.0.1:10101/on_sub_stop OnRTMPConnect:http://127.0.0.1:10101/on_rtmp_connect} PProfConfig:{Enable:true Addr::8084} LogConfig:{Level:1 Filename:./logs/lalserver.log IsToStdout:true IsRotateDaily:true ShortFileFlag:true TimestampFlag:true TimestampWithMSFlag:true LevelFlag:true AssertBehavior:1}} - config.go:277
+2021/10/08 15:26:46.564400 [22;36m INFO[0m wd: /home/welevens/cx/qcurl/server - entry.go:39
+2021/10/08 15:26:46.564409 [22;36m INFO[0m args: /tmp/go-build2714502675/b001/exe/qcurlsimpleserver - entry.go:40
+2021/10/08 15:26:46.564419 [22;36m INFO[0m bininfo: GitTag=unknown. GitCommitLog=unknown. GitStatus=unknown. BuildTime=unknown. GoVersion=unknown. runtime=linux/amd64. - entry.go:41
+2021/10/08 15:26:46.564427 [22;36m INFO[0m version: lal v0.22.0 (github.com/q191201771/lal) - entry.go:42
+2021/10/08 15:26:46.564437 [22;36m INFO[0m github: https://github.com/q191201771/lal - entry.go:43
+2021/10/08 15:26:46.564445 [22;36m INFO[0m doc: https://pengrl.com/lal - entry.go:44
+2021/10/08 15:26:46.575885 [22;36m INFO[0m start rtmp server listen. addr=0.0.0.0:1935 - server.go:56
+2021/10/08 15:30:26.392297 [22;34mDEBUG[0m [NAZACONN1] lifecycle new connection. net.Conn=0xc0002b86c0, naza.Connection=0xc0000e06e0 - connection.go:158
+2021/10/08 15:30:26.392351 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:30:26.392367 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:30:26.392376 [22;36m INFO[0m [RTMPPUBSUB1] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:30:26.392730 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C2. - server_session.go:197
+2021/10/08 15:30:26.392875 [22;36m INFO[0m [RTMPPUBSUB1] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:30:26.392891 [22;36m INFO[0m [RTMPPUBSUB1] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:30:26.392932 [22;36m INFO[0m [RTMPPUBSUB1] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:30:26.392967 [22;36m INFO[0m [RTMPPUBSUB1] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:30:26.393016 [22;36m INFO[0m [RTMPPUBSUB1] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:30:26.393261 [22;36m INFO[0m [RTMPPUBSUB1] < R createStream(). - server_session.go:375
+2021/10/08 15:30:26.393276 [22;36m INFO[0m [RTMPPUBSUB1] > W _result(). - server_session.go:376
+2021/10/08 15:30:26.393471 [22;36m INFO[0m [RTMPPUBSUB1] < R play(''). - server_session.go:436
+2021/10/08 15:30:26.393537 [22;36m INFO[0m [RTMPPUBSUB1] > W onStatus('NetStream.Play.Start'). - server_session.go:446
+2021/10/08 15:30:26.393673 [22;36m INFO[0m [GROUP1] lifecycle new group. group=0xc0003da000, appName=, streamName= - group.go:137
+2021/10/08 15:30:26.393689 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB1] add SubSession into group. - group.go:363
+2021/10/08 15:30:56.394427 [22;34mDEBUG[0m [NAZACONN1] close once. err=NetworkIdleTimeout: No recent network activity. - connection.go:424
+2021/10/08 15:30:56.394563 [22;36m INFO[0m [RTMPPUBSUB1] rtmp loop done. err=NetworkIdleTimeout: No recent network activity. - server.go:86
+2021/10/08 15:30:56.394613 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB1] del rtmp SubSession from group. - group.go:706
+2021/10/08 15:32:26.851295 [22;34mDEBUG[0m [NAZACONN2] lifecycle new connection. net.Conn=0xc0002b8a20, naza.Connection=0xc0000e0630 - connection.go:158
+2021/10/08 15:32:26.851374 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:32:26.851394 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:32:26.851405 [22;36m INFO[0m [RTMPPUBSUB2] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:32:26.852141 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C2. - server_session.go:197
+2021/10/08 15:32:26.852328 [22;36m INFO[0m [RTMPPUBSUB2] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:32:26.852355 [22;36m INFO[0m [RTMPPUBSUB2] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:32:26.852401 [22;36m INFO[0m [RTMPPUBSUB2] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:32:26.852498 [22;36m INFO[0m [RTMPPUBSUB2] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:32:26.852541 [22;36m INFO[0m [RTMPPUBSUB2] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:32:26.853051 [22;36m INFO[0m [RTMPPUBSUB2] < R createStream(). - server_session.go:375
+2021/10/08 15:32:26.853121 [22;36m INFO[0m [RTMPPUBSUB2] > W _result(). - server_session.go:376
+2021/10/08 15:32:26.853705 [22;36m INFO[0m [RTMPPUBSUB2] < R play(''). - server_session.go:436
+2021/10/08 15:32:26.853888 [22;36m INFO[0m [RTMPPUBSUB2] > W onStatus('NetStream.Play.Start'). - server_session.go:446
+2021/10/08 15:32:26.854046 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] add SubSession into group. - group.go:363
+2021/10/08 15:32:53.711422 [22;36m INFO[0m initial log succ. - config.go:191
+2021/10/08 15:32:53.711459 [22;36m INFO[0m 
+    __    ___    __
+   / /   /   |  / /
+  / /   / /| | / /
+ / /___/ ___ |/ /___
+/_____/_/  |_/_____/
+ - config.go:194
+2021/10/08 15:32:53.711533 [22;36m INFO[0m load conf file succ. filename=lalserver.conf.json, raw content={ "# doc of config": "https://pengrl.com/lal/#/ConfigBrief", "conf_version": "v0.2.2", "rtmp": { "enable": true, "addr": ":1935", "gop_num": 0, "merge_write_size": 0 }, "default_http": { "http_listen_addr": ":8080", "https_listen_addr": ":4433", "https_cert_file": "./conf/cert.pem", "https_key_file": "./conf/key.pem" }, "httpflv": { "enable": true, "enable_https": false, "url_pattern": "/live/", "gop_num": 0 }, "hls": { "enable": true, "enable_https": false, "url_pattern": "/hls/", "out_path": "/tmp/lal/hls/", "fragment_duration_ms": 3000, "fragment_num": 6, "cleanup_mode": 1, "use_memory_as_disk_flag": false }, "httpts": { "enable": true, "enable_https":false, "url_pattern": "/live/" }, "rtsp": { "enable": true, "addr": ":5544" }, "record": { "enable_flv": false, "flv_out_path": "/tmp/lal/flv/", "enable_mpegts": false, "mpegts_out_path": "/tmp/lal/mpegts" }, "relay_push": { "enable": false, "addr_list":[ ] }, "relay_pull": { "enable": false, "addr": "" }, "http_api": { "enable": true, "addr": ":8083" }, "server_id": "1", "http_notify": { "enable": false, "update_interval_sec": 5, "on_server_start": "http://127.0.0.1:10101/on_server_start", "on_update": "http://127.0.0.1:10101/on_update", "on_pub_start": "http://127.0.0.1:10101/on_pub_start", "on_pub_stop": "http://127.0.0.1:10101/on_pub_stop", "on_sub_start": "http://127.0.0.1:10101/on_sub_start", "on_sub_stop": "http://127.0.0.1:10101/on_sub_stop", "on_rtmp_connect": "http://127.0.0.1:10101/on_rtmp_connect" }, "pprof": { "enable": true, "addr": ":8084" }, "log": { "level": 1, "filename": "./logs/lalserver.log", "is_to_stdout": true, "is_rotate_daily": true, "short_file_flag": true, "assert_behavior": 1 } }  parsed=&{ConfVersion:v0.2.2 RTMPConfig:{Enable:true Addr::1935 GOPNum:0 MergeWriteSize:0} DefaultHTTPConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem}} HTTPFLVConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/} GOPNum:0} HLSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/hls/} UseMemoryAsDiskFlag:false MuxerConfig:{OutPath:/tmp/lal/hls/ FragmentDurationMS:3000 FragmentNum:6 CleanupMode:1}} HTTPTSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/}} RTSPConfig:{Enable:true Addr::5544} RecordConfig:{EnableFLV:false FLVOutPath:/tmp/lal/flv/ EnableMPEGTS:false MPEGTSOutPath:/tmp/lal/mpegts} RelayPushConfig:{Enable:false AddrList:[]} RelayPullConfig:{Enable:false Addr:} HTTPAPIConfig:{Enable:true Addr::8083} ServerID:1 HTTPNotifyConfig:{Enable:false UpdateIntervalSec:5 OnServerStart:http://127.0.0.1:10101/on_server_start OnUpdate:http://127.0.0.1:10101/on_update OnPubStart:http://127.0.0.1:10101/on_pub_start OnPubStop:http://127.0.0.1:10101/on_pub_stop OnSubStart:http://127.0.0.1:10101/on_sub_start OnSubStop:http://127.0.0.1:10101/on_sub_stop OnRTMPConnect:http://127.0.0.1:10101/on_rtmp_connect} PProfConfig:{Enable:true Addr::8084} LogConfig:{Level:1 Filename:./logs/lalserver.log IsToStdout:true IsRotateDaily:true ShortFileFlag:true TimestampFlag:true TimestampWithMSFlag:true LevelFlag:true AssertBehavior:1}} - config.go:277
+2021/10/08 15:32:53.711580 [22;36m INFO[0m wd: /home/welevens/cx/qcurl/server - entry.go:39
+2021/10/08 15:32:53.711587 [22;36m INFO[0m args: /tmp/go-build2439716633/b001/exe/qcurlsimpleserver - entry.go:40
+2021/10/08 15:32:53.711593 [22;36m INFO[0m bininfo: GitTag=unknown. GitCommitLog=unknown. GitStatus=unknown. BuildTime=unknown. GoVersion=unknown. runtime=linux/amd64. - entry.go:41
+2021/10/08 15:32:53.711602 [22;36m INFO[0m version: lal v0.22.0 (github.com/q191201771/lal) - entry.go:42
+2021/10/08 15:32:53.711609 [22;36m INFO[0m github: https://github.com/q191201771/lal - entry.go:43
+2021/10/08 15:32:53.711614 [22;36m INFO[0m doc: https://pengrl.com/lal - entry.go:44
+2021/10/08 15:32:53.745774 [22;36m INFO[0m start rtmp server listen. addr=0.0.0.0:1935 - server.go:56
+2021/10/08 15:36:26.795687 [22;34mDEBUG[0m [NAZACONN1] lifecycle new connection. net.Conn=0xc0000c46c0, naza.Connection=0xc0000bc0b0 - connection.go:158
+2021/10/08 15:36:26.795918 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:36:26.795980 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:36:26.796026 [22;36m INFO[0m [RTMPPUBSUB1] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:36:26.797488 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C2. - server_session.go:197
+2021/10/08 15:36:26.798019 [22;36m INFO[0m [RTMPPUBSUB1] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:36:26.798110 [22;36m INFO[0m [RTMPPUBSUB1] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:36:26.798284 [22;36m INFO[0m [RTMPPUBSUB1] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:36:26.798566 [22;36m INFO[0m [RTMPPUBSUB1] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:36:26.798868 [22;36m INFO[0m [RTMPPUBSUB1] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:36:26.799652 [22;36m INFO[0m [RTMPPUBSUB1] < R createStream(). - server_session.go:375
+2021/10/08 15:36:26.799731 [22;36m INFO[0m [RTMPPUBSUB1] > W _result(). - server_session.go:376
+2021/10/08 15:36:26.800557 [22;34mDEBUG[0m [RTMPPUBSUB1] pubType= - server_session.go:403
+2021/10/08 15:36:26.800650 [22;36m INFO[0m [RTMPPUBSUB1] < R publish('') - server_session.go:404
+2021/10/08 15:36:26.800706 [22;36m INFO[0m [RTMPPUBSUB1] > W onStatus('NetStream.Publish.Start'). - server_session.go:406
+2021/10/08 15:36:26.800947 [22;36m INFO[0m [GROUP1] lifecycle new group. group=0xc00018c000, appName=, streamName= - group.go:137
+2021/10/08 15:36:26.801058 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB1] add PubSession into group. - group.go:292
+2021/10/08 15:36:26.801411 [22;36m INFO[0m [HLSMUXER1] lifecycle new hls muxer. muxer=0xc0000ca300, streamName= - muxer.go:119
+2021/10/08 15:36:26.801490 [22;36m INFO[0m [HLSMUXER1] start hls muxer. - muxer.go:124
+2021/10/08 15:36:26.821339 [22;34mDEBUG[0m [GROUP1] cache rtmp metadata. size:457 - gop_cache.go:86
+2021/10/08 15:36:26.821483 [22;34mDEBUG[0m [GROUP1] cache httpflv metadata. size:460 - gop_cache.go:86
+2021/10/08 15:36:26.822422 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:36:26.822717 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:36:26.822877 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:36:26.823529 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:36:26.823659 [22;34mDEBUG[0m reserve. newLen=69632(0, 0), need=(48678 -> 65536), cap=(4096 -> 69632) - stream.go:75
+2021/10/08 15:36:42.908391 [22;34mDEBUG[0m [NAZACONN2] lifecycle new connection. net.Conn=0xc0000c4a20, naza.Connection=0xc0000bc210 - connection.go:158
+2021/10/08 15:36:42.908630 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:36:42.908702 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:36:42.908753 [22;36m INFO[0m [RTMPPUBSUB2] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:36:42.910001 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C2. - server_session.go:197
+2021/10/08 15:36:42.911005 [22;36m INFO[0m [RTMPPUBSUB2] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:36:42.911110 [22;36m INFO[0m [RTMPPUBSUB2] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:36:42.911259 [22;36m INFO[0m [RTMPPUBSUB2] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:36:42.911501 [22;36m INFO[0m [RTMPPUBSUB2] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:36:42.911737 [22;36m INFO[0m [RTMPPUBSUB2] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:36:42.913267 [22;36m INFO[0m [RTMPPUBSUB2] < R createStream(). - server_session.go:375
+2021/10/08 15:36:42.913326 [22;36m INFO[0m [RTMPPUBSUB2] > W _result(). - server_session.go:376
+2021/10/08 15:36:42.914055 [22;36m INFO[0m [RTMPPUBSUB2] < R play(''). - server_session.go:436
+2021/10/08 15:36:42.914319 [22;36m INFO[0m [RTMPPUBSUB2] > W onStatus('NetStream.Play.Start'). - server_session.go:446
+2021/10/08 15:36:42.914502 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] add SubSession into group. - group.go:363
+2021/10/08 15:37:24.204635 [22;31mERROR[0m [lal.avc: fxxk] iterate nalu failed. err=STREAMER1, payload=00000000  17 02 00 00 00                                    |.....|
+ - streamer.go:133
+2021/10/08 15:37:24.204832 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:37:24.204913 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:37:24.204984 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:37:24.205041 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:37:38.503594 [22;34mDEBUG[0m [NAZACONN2] close once. err=NetworkIdleTimeout: No recent network activity. - connection.go:424
+2021/10/08 15:37:38.503806 [22;36m INFO[0m [RTMPPUBSUB2] rtmp loop done. err=NetworkIdleTimeout: No recent network activity. - server.go:86
+2021/10/08 15:37:38.503860 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] del rtmp SubSession from group. - group.go:706
+2021/10/08 15:38:06.813389 [22;36m INFO[0m initial log succ. - config.go:191
+2021/10/08 15:38:06.813430 [22;36m INFO[0m 
+    __    ___    __
+   / /   /   |  / /
+  / /   / /| | / /
+ / /___/ ___ |/ /___
+/_____/_/  |_/_____/
+ - config.go:194
+2021/10/08 15:38:06.813507 [22;36m INFO[0m load conf file succ. filename=lalserver.conf.json, raw content={ "# doc of config": "https://pengrl.com/lal/#/ConfigBrief", "conf_version": "v0.2.2", "rtmp": { "enable": true, "addr": ":1935", "gop_num": 0, "merge_write_size": 0 }, "default_http": { "http_listen_addr": ":8080", "https_listen_addr": ":4433", "https_cert_file": "./conf/cert.pem", "https_key_file": "./conf/key.pem" }, "httpflv": { "enable": true, "enable_https": false, "url_pattern": "/live/", "gop_num": 0 }, "hls": { "enable": true, "enable_https": false, "url_pattern": "/hls/", "out_path": "/tmp/lal/hls/", "fragment_duration_ms": 3000, "fragment_num": 6, "cleanup_mode": 1, "use_memory_as_disk_flag": false }, "httpts": { "enable": true, "enable_https":false, "url_pattern": "/live/" }, "rtsp": { "enable": true, "addr": ":5544" }, "record": { "enable_flv": false, "flv_out_path": "/tmp/lal/flv/", "enable_mpegts": false, "mpegts_out_path": "/tmp/lal/mpegts" }, "relay_push": { "enable": false, "addr_list":[ ] }, "relay_pull": { "enable": false, "addr": "" }, "http_api": { "enable": true, "addr": ":8083" }, "server_id": "1", "http_notify": { "enable": false, "update_interval_sec": 5, "on_server_start": "http://127.0.0.1:10101/on_server_start", "on_update": "http://127.0.0.1:10101/on_update", "on_pub_start": "http://127.0.0.1:10101/on_pub_start", "on_pub_stop": "http://127.0.0.1:10101/on_pub_stop", "on_sub_start": "http://127.0.0.1:10101/on_sub_start", "on_sub_stop": "http://127.0.0.1:10101/on_sub_stop", "on_rtmp_connect": "http://127.0.0.1:10101/on_rtmp_connect" }, "pprof": { "enable": true, "addr": ":8084" }, "log": { "level": 1, "filename": "./logs/lalserver.log", "is_to_stdout": true, "is_rotate_daily": true, "short_file_flag": true, "assert_behavior": 1 } }  parsed=&{ConfVersion:v0.2.2 RTMPConfig:{Enable:true Addr::1935 GOPNum:0 MergeWriteSize:0} DefaultHTTPConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem}} HTTPFLVConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/} GOPNum:0} HLSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/hls/} UseMemoryAsDiskFlag:false MuxerConfig:{OutPath:/tmp/lal/hls/ FragmentDurationMS:3000 FragmentNum:6 CleanupMode:1}} HTTPTSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/}} RTSPConfig:{Enable:true Addr::5544} RecordConfig:{EnableFLV:false FLVOutPath:/tmp/lal/flv/ EnableMPEGTS:false MPEGTSOutPath:/tmp/lal/mpegts} RelayPushConfig:{Enable:false AddrList:[]} RelayPullConfig:{Enable:false Addr:} HTTPAPIConfig:{Enable:true Addr::8083} ServerID:1 HTTPNotifyConfig:{Enable:false UpdateIntervalSec:5 OnServerStart:http://127.0.0.1:10101/on_server_start OnUpdate:http://127.0.0.1:10101/on_update OnPubStart:http://127.0.0.1:10101/on_pub_start OnPubStop:http://127.0.0.1:10101/on_pub_stop OnSubStart:http://127.0.0.1:10101/on_sub_start OnSubStop:http://127.0.0.1:10101/on_sub_stop OnRTMPConnect:http://127.0.0.1:10101/on_rtmp_connect} PProfConfig:{Enable:true Addr::8084} LogConfig:{Level:1 Filename:./logs/lalserver.log IsToStdout:true IsRotateDaily:true ShortFileFlag:true TimestampFlag:true TimestampWithMSFlag:true LevelFlag:true AssertBehavior:1}} - config.go:277
+2021/10/08 15:38:06.813556 [22;36m INFO[0m wd: /home/welevens/cx/qcurl/server - entry.go:39
+2021/10/08 15:38:06.813564 [22;36m INFO[0m args: /tmp/go-build4003815606/b001/exe/qcurlsimpleserver - entry.go:40
+2021/10/08 15:38:06.813572 [22;36m INFO[0m bininfo: GitTag=unknown. GitCommitLog=unknown. GitStatus=unknown. BuildTime=unknown. GoVersion=unknown. runtime=linux/amd64. - entry.go:41
+2021/10/08 15:38:06.813579 [22;36m INFO[0m version: lal v0.22.0 (github.com/q191201771/lal) - entry.go:42
+2021/10/08 15:38:06.813585 [22;36m INFO[0m github: https://github.com/q191201771/lal - entry.go:43
+2021/10/08 15:38:06.813593 [22;36m INFO[0m doc: https://pengrl.com/lal - entry.go:44
+2021/10/08 15:38:06.856851 [22;36m INFO[0m start rtmp server listen. addr=0.0.0.0:1935 - server.go:56
+2021/10/08 15:38:15.246732 [22;34mDEBUG[0m [NAZACONN1] lifecycle new connection. net.Conn=0xc00012e480, naza.Connection=0xc0000b60b0 - connection.go:158
+2021/10/08 15:38:15.246798 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:38:15.246812 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:38:15.246820 [22;36m INFO[0m [RTMPPUBSUB1] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:38:15.247161 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C2. - server_session.go:197
+2021/10/08 15:38:15.247343 [22;36m INFO[0m [RTMPPUBSUB1] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:38:15.247377 [22;36m INFO[0m [RTMPPUBSUB1] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:38:15.247426 [22;36m INFO[0m [RTMPPUBSUB1] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:38:15.247460 [22;36m INFO[0m [RTMPPUBSUB1] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:38:15.247509 [22;36m INFO[0m [RTMPPUBSUB1] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:38:15.247736 [22;36m INFO[0m [RTMPPUBSUB1] < R createStream(). - server_session.go:375
+2021/10/08 15:38:15.247749 [22;36m INFO[0m [RTMPPUBSUB1] > W _result(). - server_session.go:376
+2021/10/08 15:38:15.247904 [22;34mDEBUG[0m [RTMPPUBSUB1] pubType= - server_session.go:403
+2021/10/08 15:38:15.247921 [22;36m INFO[0m [RTMPPUBSUB1] < R publish('') - server_session.go:404
+2021/10/08 15:38:15.247930 [22;36m INFO[0m [RTMPPUBSUB1] > W onStatus('NetStream.Publish.Start'). - server_session.go:406
+2021/10/08 15:38:15.248044 [22;36m INFO[0m [GROUP1] lifecycle new group. group=0xc00018c000, appName=, streamName= - group.go:137
+2021/10/08 15:38:15.248060 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB1] add PubSession into group. - group.go:292
+2021/10/08 15:38:15.248786 [22;36m INFO[0m [HLSMUXER1] lifecycle new hls muxer. muxer=0xc0000c4200, streamName= - muxer.go:119
+2021/10/08 15:38:15.248825 [22;36m INFO[0m [HLSMUXER1] start hls muxer. - muxer.go:124
+2021/10/08 15:38:15.248917 [22;34mDEBUG[0m [GROUP1] cache rtmp metadata. size:457 - gop_cache.go:86
+2021/10/08 15:38:15.248957 [22;34mDEBUG[0m [GROUP1] cache httpflv metadata. size:460 - gop_cache.go:86
+2021/10/08 15:38:15.248987 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:38:15.248998 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:38:15.249024 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:38:15.249049 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:38:15.249098 [22;34mDEBUG[0m reserve. newLen=69632(0, 0), need=(48678 -> 65536), cap=(4096 -> 69632) - stream.go:75
+2021/10/08 15:38:18.585450 [22;34mDEBUG[0m [NAZACONN2] lifecycle new connection. net.Conn=0xc00012ed80, naza.Connection=0xc00013c2c0 - connection.go:158
+2021/10/08 15:38:18.585522 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:38:18.585540 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:38:18.585551 [22;36m INFO[0m [RTMPPUBSUB2] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:38:18.586442 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C2. - server_session.go:197
+2021/10/08 15:38:18.586892 [22;36m INFO[0m [RTMPPUBSUB2] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:38:18.586925 [22;36m INFO[0m [RTMPPUBSUB2] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:38:18.586998 [22;36m INFO[0m [RTMPPUBSUB2] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:38:18.587072 [22;36m INFO[0m [RTMPPUBSUB2] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:38:18.587141 [22;36m INFO[0m [RTMPPUBSUB2] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:38:18.587385 [22;36m INFO[0m [RTMPPUBSUB2] < R createStream(). - server_session.go:375
+2021/10/08 15:38:18.587412 [22;36m INFO[0m [RTMPPUBSUB2] > W _result(). - server_session.go:376
+2021/10/08 15:38:18.587673 [22;34mDEBUG[0m [RTMPPUBSUB2] pubType= - server_session.go:403
+2021/10/08 15:38:18.587701 [22;36m INFO[0m [RTMPPUBSUB2] < R publish('') - server_session.go:404
+2021/10/08 15:38:18.587714 [22;36m INFO[0m [RTMPPUBSUB2] > W onStatus('NetStream.Publish.Start'). - server_session.go:406
+2021/10/08 15:38:18.587776 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] add PubSession into group. - group.go:292
+2021/10/08 15:38:18.587803 [22;31mERROR[0m [GROUP1] in stream already exist. wanna add=RTMPPUBSUB2 - group.go:298
+2021/10/08 15:38:18.587844 [22;33m WARN[0m dispose PubSession since pub exist. - server.go:105
+2021/10/08 15:38:18.587860 [22;36m INFO[0m [RTMPPUBSUB2] lifecycle dispose rtmp ServerSession. - server_session.go:119
+2021/10/08 15:38:18.587873 [22;34mDEBUG[0m [NAZACONN2] Close. - connection.go:317
+2021/10/08 15:38:18.587887 [22;34mDEBUG[0m [NAZACONN2] close once. err=<nil> - connection.go:424
+2021/10/08 15:38:18.682732 [22;36m INFO[0m [RTMPPUBSUB2] rtmp loop done. err=EOF - server.go:86
+2021/10/08 15:38:18.682872 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] del rtmp PubSession from group. - group.go:673
+2021/10/08 15:38:18.682925 [22;33m WARN[0m [GROUP1] del rtmp pub session but not match. del session=RTMPPUBSUB2, group session=0xc000148000 - group.go:676
+2021/10/08 15:38:40.097536 [22;36m INFO[0m initial log succ. - config.go:191
+2021/10/08 15:38:40.097572 [22;36m INFO[0m 
+    __    ___    __
+   / /   /   |  / /
+  / /   / /| | / /
+ / /___/ ___ |/ /___
+/_____/_/  |_/_____/
+ - config.go:194
+2021/10/08 15:38:40.097657 [22;36m INFO[0m load conf file succ. filename=lalserver.conf.json, raw content={ "# doc of config": "https://pengrl.com/lal/#/ConfigBrief", "conf_version": "v0.2.2", "rtmp": { "enable": true, "addr": ":1935", "gop_num": 0, "merge_write_size": 0 }, "default_http": { "http_listen_addr": ":8080", "https_listen_addr": ":4433", "https_cert_file": "./conf/cert.pem", "https_key_file": "./conf/key.pem" }, "httpflv": { "enable": true, "enable_https": false, "url_pattern": "/live/", "gop_num": 0 }, "hls": { "enable": true, "enable_https": false, "url_pattern": "/hls/", "out_path": "/tmp/lal/hls/", "fragment_duration_ms": 3000, "fragment_num": 6, "cleanup_mode": 1, "use_memory_as_disk_flag": false }, "httpts": { "enable": true, "enable_https":false, "url_pattern": "/live/" }, "rtsp": { "enable": true, "addr": ":5544" }, "record": { "enable_flv": false, "flv_out_path": "/tmp/lal/flv/", "enable_mpegts": false, "mpegts_out_path": "/tmp/lal/mpegts" }, "relay_push": { "enable": false, "addr_list":[ ] }, "relay_pull": { "enable": false, "addr": "" }, "http_api": { "enable": true, "addr": ":8083" }, "server_id": "1", "http_notify": { "enable": false, "update_interval_sec": 5, "on_server_start": "http://127.0.0.1:10101/on_server_start", "on_update": "http://127.0.0.1:10101/on_update", "on_pub_start": "http://127.0.0.1:10101/on_pub_start", "on_pub_stop": "http://127.0.0.1:10101/on_pub_stop", "on_sub_start": "http://127.0.0.1:10101/on_sub_start", "on_sub_stop": "http://127.0.0.1:10101/on_sub_stop", "on_rtmp_connect": "http://127.0.0.1:10101/on_rtmp_connect" }, "pprof": { "enable": true, "addr": ":8084" }, "log": { "level": 1, "filename": "./logs/lalserver.log", "is_to_stdout": true, "is_rotate_daily": true, "short_file_flag": true, "assert_behavior": 1 } }  parsed=&{ConfVersion:v0.2.2 RTMPConfig:{Enable:true Addr::1935 GOPNum:0 MergeWriteSize:0} DefaultHTTPConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem}} HTTPFLVConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/} GOPNum:0} HLSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/hls/} UseMemoryAsDiskFlag:false MuxerConfig:{OutPath:/tmp/lal/hls/ FragmentDurationMS:3000 FragmentNum:6 CleanupMode:1}} HTTPTSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/}} RTSPConfig:{Enable:true Addr::5544} RecordConfig:{EnableFLV:false FLVOutPath:/tmp/lal/flv/ EnableMPEGTS:false MPEGTSOutPath:/tmp/lal/mpegts} RelayPushConfig:{Enable:false AddrList:[]} RelayPullConfig:{Enable:false Addr:} HTTPAPIConfig:{Enable:true Addr::8083} ServerID:1 HTTPNotifyConfig:{Enable:false UpdateIntervalSec:5 OnServerStart:http://127.0.0.1:10101/on_server_start OnUpdate:http://127.0.0.1:10101/on_update OnPubStart:http://127.0.0.1:10101/on_pub_start OnPubStop:http://127.0.0.1:10101/on_pub_stop OnSubStart:http://127.0.0.1:10101/on_sub_start OnSubStop:http://127.0.0.1:10101/on_sub_stop OnRTMPConnect:http://127.0.0.1:10101/on_rtmp_connect} PProfConfig:{Enable:true Addr::8084} LogConfig:{Level:1 Filename:./logs/lalserver.log IsToStdout:true IsRotateDaily:true ShortFileFlag:true TimestampFlag:true TimestampWithMSFlag:true LevelFlag:true AssertBehavior:1}} - config.go:277
+2021/10/08 15:38:40.097710 [22;36m INFO[0m wd: /home/welevens/cx/qcurl/server - entry.go:39
+2021/10/08 15:38:40.097719 [22;36m INFO[0m args: /tmp/go-build256629818/b001/exe/qcurlsimpleserver - entry.go:40
+2021/10/08 15:38:40.097729 [22;36m INFO[0m bininfo: GitTag=unknown. GitCommitLog=unknown. GitStatus=unknown. BuildTime=unknown. GoVersion=unknown. runtime=linux/amd64. - entry.go:41
+2021/10/08 15:38:40.097739 [22;36m INFO[0m version: lal v0.22.0 (github.com/q191201771/lal) - entry.go:42
+2021/10/08 15:38:40.097749 [22;36m INFO[0m github: https://github.com/q191201771/lal - entry.go:43
+2021/10/08 15:38:40.097759 [22;36m INFO[0m doc: https://pengrl.com/lal - entry.go:44
+2021/10/08 15:38:40.158939 [22;36m INFO[0m start rtmp server listen. addr=0.0.0.0:1935 - server.go:56
+2021/10/08 15:42:54.993733 [22;34mDEBUG[0m [NAZACONN1] lifecycle new connection. net.Conn=0xc00044c480, naza.Connection=0xc0000e0420 - connection.go:158
+2021/10/08 15:42:54.993839 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:42:54.993862 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:42:54.993881 [22;36m INFO[0m [RTMPPUBSUB1] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:42:54.994344 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C2. - server_session.go:197
+2021/10/08 15:42:54.994521 [22;36m INFO[0m [RTMPPUBSUB1] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:42:54.994563 [22;36m INFO[0m [RTMPPUBSUB1] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:42:54.994628 [22;36m INFO[0m [RTMPPUBSUB1] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:42:54.994689 [22;36m INFO[0m [RTMPPUBSUB1] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:42:54.994767 [22;36m INFO[0m [RTMPPUBSUB1] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:42:54.995059 [22;36m INFO[0m [RTMPPUBSUB1] < R createStream(). - server_session.go:375
+2021/10/08 15:42:54.995079 [22;36m INFO[0m [RTMPPUBSUB1] > W _result(). - server_session.go:376
+2021/10/08 15:42:54.995358 [22;34mDEBUG[0m [RTMPPUBSUB1] pubType= - server_session.go:403
+2021/10/08 15:42:54.995386 [22;36m INFO[0m [RTMPPUBSUB1] < R publish('') - server_session.go:404
+2021/10/08 15:42:54.995418 [22;36m INFO[0m [RTMPPUBSUB1] > W onStatus('NetStream.Publish.Start'). - server_session.go:406
+2021/10/08 15:42:54.995555 [22;36m INFO[0m [GROUP1] lifecycle new group. group=0xc000136000, appName=, streamName= - group.go:137
+2021/10/08 15:42:54.995599 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB1] add PubSession into group. - group.go:292
+2021/10/08 15:42:54.995865 [22;36m INFO[0m [HLSMUXER1] lifecycle new hls muxer. muxer=0xc000630300, streamName= - muxer.go:119
+2021/10/08 15:42:54.995895 [22;36m INFO[0m [HLSMUXER1] start hls muxer. - muxer.go:124
+2021/10/08 15:42:54.996082 [22;34mDEBUG[0m [GROUP1] cache rtmp metadata. size:457 - gop_cache.go:86
+2021/10/08 15:42:54.996140 [22;34mDEBUG[0m [GROUP1] cache httpflv metadata. size:460 - gop_cache.go:86
+2021/10/08 15:42:54.996195 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:42:54.996226 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:42:54.996970 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:42:54.997016 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:42:54.997096 [22;34mDEBUG[0m reserve. newLen=69632(0, 0), need=(48678 -> 65536), cap=(4096 -> 69632) - stream.go:75
+2021/10/08 15:42:55.961223 [22;34mDEBUG[0m [NAZACONN2] lifecycle new connection. net.Conn=0xc00044c7e0, naza.Connection=0xc0001f4000 - connection.go:158
+2021/10/08 15:42:55.961318 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:42:55.961340 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:42:55.961353 [22;36m INFO[0m [RTMPPUBSUB2] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:42:55.961897 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C2. - server_session.go:197
+2021/10/08 15:42:55.962084 [22;36m INFO[0m [RTMPPUBSUB2] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:42:55.962123 [22;36m INFO[0m [RTMPPUBSUB2] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:42:55.962198 [22;36m INFO[0m [RTMPPUBSUB2] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:42:55.962296 [22;36m INFO[0m [RTMPPUBSUB2] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:42:55.962433 [22;36m INFO[0m [RTMPPUBSUB2] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:42:55.962769 [22;36m INFO[0m [RTMPPUBSUB2] < R createStream(). - server_session.go:375
+2021/10/08 15:42:55.962824 [22;36m INFO[0m [RTMPPUBSUB2] > W _result(). - server_session.go:376
+2021/10/08 15:42:55.963112 [22;34mDEBUG[0m [RTMPPUBSUB2] pubType= - server_session.go:403
+2021/10/08 15:42:55.963161 [22;36m INFO[0m [RTMPPUBSUB2] < R publish('') - server_session.go:404
+2021/10/08 15:42:55.963195 [22;36m INFO[0m [RTMPPUBSUB2] > W onStatus('NetStream.Publish.Start'). - server_session.go:406
+2021/10/08 15:42:55.963304 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] add PubSession into group. - group.go:292
+2021/10/08 15:42:55.963328 [22;31mERROR[0m [GROUP1] in stream already exist. wanna add=RTMPPUBSUB2 - group.go:298
+2021/10/08 15:42:55.963344 [22;33m WARN[0m dispose PubSession since pub exist. - server.go:105
+2021/10/08 15:42:55.963357 [22;36m INFO[0m [RTMPPUBSUB2] lifecycle dispose rtmp ServerSession. - server_session.go:119
+2021/10/08 15:42:55.963374 [22;34mDEBUG[0m [NAZACONN2] Close. - connection.go:317
+2021/10/08 15:42:55.963392 [22;34mDEBUG[0m [NAZACONN2] close once. err=<nil> - connection.go:424
+2021/10/08 15:42:55.963863 [22;36m INFO[0m [RTMPPUBSUB2] rtmp loop done. err=EOF - server.go:86
+2021/10/08 15:42:55.963899 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] del rtmp PubSession from group. - group.go:673
+2021/10/08 15:42:55.963921 [22;33m WARN[0m [GROUP1] del rtmp pub session but not match. del session=RTMPPUBSUB2, group session=0xc0000ec000 - group.go:676
+2021/10/08 15:43:52.397515 [22;31mERROR[0m [lal.avc: fxxk] iterate nalu failed. err=STREAMER1, payload=00000000  17 02 00 00 00                                    |.....|
+ - streamer.go:133
+2021/10/08 15:43:52.397825 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:43:52.397893 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:43:52.397968 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:43:52.398023 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:44:35.477097 [22;34mDEBUG[0m [NAZACONN3] lifecycle new connection. net.Conn=0xc000122000, naza.Connection=0xc00031c000 - connection.go:158
+2021/10/08 15:44:35.477189 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:44:35.477215 [22;36m INFO[0m [RTMPPUBSUB3] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:44:35.477235 [22;36m INFO[0m [RTMPPUBSUB3] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:44:35.477808 [22;36m INFO[0m [RTMPPUBSUB3] < R Handshake C2. - server_session.go:197
+2021/10/08 15:44:35.478094 [22;36m INFO[0m [RTMPPUBSUB3] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:44:35.478135 [22;36m INFO[0m [RTMPPUBSUB3] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:44:35.478221 [22;36m INFO[0m [RTMPPUBSUB3] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:44:35.478301 [22;36m INFO[0m [RTMPPUBSUB3] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:44:35.478342 [22;36m INFO[0m [RTMPPUBSUB3] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:44:35.478753 [22;36m INFO[0m [RTMPPUBSUB3] < R createStream(). - server_session.go:375
+2021/10/08 15:44:35.478772 [22;36m INFO[0m [RTMPPUBSUB3] > W _result(). - server_session.go:376
+2021/10/08 15:44:35.479063 [22;36m INFO[0m [RTMPPUBSUB3] < R play(''). - server_session.go:436
+2021/10/08 15:44:35.479166 [22;36m INFO[0m [RTMPPUBSUB3] > W onStatus('NetStream.Play.Start'). - server_session.go:446
+2021/10/08 15:44:35.479263 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB3] add SubSession into group. - group.go:363
+2021/10/08 15:44:53.390713 [22;36m INFO[0m initial log succ. - config.go:191
+2021/10/08 15:44:53.390749 [22;36m INFO[0m 
+    __    ___    __
+   / /   /   |  / /
+  / /   / /| | / /
+ / /___/ ___ |/ /___
+/_____/_/  |_/_____/
+ - config.go:194
+2021/10/08 15:44:53.390846 [22;36m INFO[0m load conf file succ. filename=lalserver.conf.json, raw content={ "# doc of config": "https://pengrl.com/lal/#/ConfigBrief", "conf_version": "v0.2.2", "rtmp": { "enable": true, "addr": ":1935", "gop_num": 0, "merge_write_size": 0 }, "default_http": { "http_listen_addr": ":8080", "https_listen_addr": ":4433", "https_cert_file": "./conf/cert.pem", "https_key_file": "./conf/key.pem" }, "httpflv": { "enable": true, "enable_https": false, "url_pattern": "/live/", "gop_num": 0 }, "hls": { "enable": true, "enable_https": false, "url_pattern": "/hls/", "out_path": "/tmp/lal/hls/", "fragment_duration_ms": 3000, "fragment_num": 6, "cleanup_mode": 1, "use_memory_as_disk_flag": false }, "httpts": { "enable": true, "enable_https":false, "url_pattern": "/live/" }, "rtsp": { "enable": true, "addr": ":5544" }, "record": { "enable_flv": false, "flv_out_path": "/tmp/lal/flv/", "enable_mpegts": false, "mpegts_out_path": "/tmp/lal/mpegts" }, "relay_push": { "enable": false, "addr_list":[ ] }, "relay_pull": { "enable": false, "addr": "" }, "http_api": { "enable": true, "addr": ":8083" }, "server_id": "1", "http_notify": { "enable": false, "update_interval_sec": 5, "on_server_start": "http://127.0.0.1:10101/on_server_start", "on_update": "http://127.0.0.1:10101/on_update", "on_pub_start": "http://127.0.0.1:10101/on_pub_start", "on_pub_stop": "http://127.0.0.1:10101/on_pub_stop", "on_sub_start": "http://127.0.0.1:10101/on_sub_start", "on_sub_stop": "http://127.0.0.1:10101/on_sub_stop", "on_rtmp_connect": "http://127.0.0.1:10101/on_rtmp_connect" }, "pprof": { "enable": true, "addr": ":8084" }, "log": { "level": 1, "filename": "./logs/lalserver.log", "is_to_stdout": true, "is_rotate_daily": true, "short_file_flag": true, "assert_behavior": 1 } }  parsed=&{ConfVersion:v0.2.2 RTMPConfig:{Enable:true Addr::1935 GOPNum:0 MergeWriteSize:0} DefaultHTTPConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem}} HTTPFLVConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/} GOPNum:0} HLSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/hls/} UseMemoryAsDiskFlag:false MuxerConfig:{OutPath:/tmp/lal/hls/ FragmentDurationMS:3000 FragmentNum:6 CleanupMode:1}} HTTPTSConfig:{CommonHTTPServerConfig:{CommonHTTPAddrConfig:{HTTPListenAddr::8080 HTTPSListenAddr::4433 HTTPSCertFile:./conf/cert.pem HTTPSKeyFile:./conf/key.pem} Enable:true EnableHTTPS:false URLPattern:/live/}} RTSPConfig:{Enable:true Addr::5544} RecordConfig:{EnableFLV:false FLVOutPath:/tmp/lal/flv/ EnableMPEGTS:false MPEGTSOutPath:/tmp/lal/mpegts} RelayPushConfig:{Enable:false AddrList:[]} RelayPullConfig:{Enable:false Addr:} HTTPAPIConfig:{Enable:true Addr::8083} ServerID:1 HTTPNotifyConfig:{Enable:false UpdateIntervalSec:5 OnServerStart:http://127.0.0.1:10101/on_server_start OnUpdate:http://127.0.0.1:10101/on_update OnPubStart:http://127.0.0.1:10101/on_pub_start OnPubStop:http://127.0.0.1:10101/on_pub_stop OnSubStart:http://127.0.0.1:10101/on_sub_start OnSubStop:http://127.0.0.1:10101/on_sub_stop OnRTMPConnect:http://127.0.0.1:10101/on_rtmp_connect} PProfConfig:{Enable:true Addr::8084} LogConfig:{Level:1 Filename:./logs/lalserver.log IsToStdout:true IsRotateDaily:true ShortFileFlag:true TimestampFlag:true TimestampWithMSFlag:true LevelFlag:true AssertBehavior:1}} - config.go:277
+2021/10/08 15:44:53.390895 [22;36m INFO[0m wd: /home/welevens/cx/qcurl/server - entry.go:39
+2021/10/08 15:44:53.390902 [22;36m INFO[0m args: /tmp/go-build3757100984/b001/exe/qcurlsimpleserver - entry.go:40
+2021/10/08 15:44:53.390912 [22;36m INFO[0m bininfo: GitTag=unknown. GitCommitLog=unknown. GitStatus=unknown. BuildTime=unknown. GoVersion=unknown. runtime=linux/amd64. - entry.go:41
+2021/10/08 15:44:53.390924 [22;36m INFO[0m version: lal v0.22.0 (github.com/q191201771/lal) - entry.go:42
+2021/10/08 15:44:53.390934 [22;36m INFO[0m github: https://github.com/q191201771/lal - entry.go:43
+2021/10/08 15:44:53.390945 [22;36m INFO[0m doc: https://pengrl.com/lal - entry.go:44
+2021/10/08 15:44:53.401646 [22;36m INFO[0m start rtmp server listen. addr=0.0.0.0:1935 - server.go:56
+2021/10/08 15:44:56.984066 [22;34mDEBUG[0m [NAZACONN1] lifecycle new connection. net.Conn=0xc000152b40, naza.Connection=0xc0001b60b0 - connection.go:158
+2021/10/08 15:44:56.984159 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:44:56.984175 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:44:56.984185 [22;36m INFO[0m [RTMPPUBSUB1] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:44:56.984478 [22;36m INFO[0m [RTMPPUBSUB1] < R Handshake C2. - server_session.go:197
+2021/10/08 15:44:56.984623 [22;36m INFO[0m [RTMPPUBSUB1] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:44:56.984655 [22;36m INFO[0m [RTMPPUBSUB1] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:44:56.984701 [22;36m INFO[0m [RTMPPUBSUB1] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:44:56.984780 [22;36m INFO[0m [RTMPPUBSUB1] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:44:56.984826 [22;36m INFO[0m [RTMPPUBSUB1] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:44:56.985144 [22;36m INFO[0m [RTMPPUBSUB1] < R createStream(). - server_session.go:375
+2021/10/08 15:44:56.985180 [22;36m INFO[0m [RTMPPUBSUB1] > W _result(). - server_session.go:376
+2021/10/08 15:44:56.985516 [22;34mDEBUG[0m [RTMPPUBSUB1] pubType= - server_session.go:403
+2021/10/08 15:44:56.985545 [22;36m INFO[0m [RTMPPUBSUB1] < R publish('') - server_session.go:404
+2021/10/08 15:44:56.985569 [22;36m INFO[0m [RTMPPUBSUB1] > W onStatus('NetStream.Publish.Start'). - server_session.go:406
+2021/10/08 15:44:56.985690 [22;36m INFO[0m [GROUP1] lifecycle new group. group=0xc000136780, appName=, streamName= - group.go:137
+2021/10/08 15:44:56.985838 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB1] add PubSession into group. - group.go:292
+2021/10/08 15:44:56.986833 [22;36m INFO[0m [HLSMUXER1] lifecycle new hls muxer. muxer=0xc000124300, streamName= - muxer.go:119
+2021/10/08 15:44:56.986863 [22;36m INFO[0m [HLSMUXER1] start hls muxer. - muxer.go:124
+2021/10/08 15:44:56.987274 [22;34mDEBUG[0m [GROUP1] cache rtmp metadata. size:457 - gop_cache.go:86
+2021/10/08 15:44:56.987302 [22;34mDEBUG[0m [GROUP1] cache httpflv metadata. size:460 - gop_cache.go:86
+2021/10/08 15:44:56.987328 [22;34mDEBUG[0m [GROUP1] cache rtmp video seq header. size:66 - gop_cache.go:97
+2021/10/08 15:44:56.987359 [22;34mDEBUG[0m [GROUP1] cache httpflv video seq header. size:69 - gop_cache.go:97
+2021/10/08 15:44:56.987445 [22;34mDEBUG[0m [GROUP1] cache rtmp aac seq header. size:19 - gop_cache.go:91
+2021/10/08 15:44:56.987459 [22;34mDEBUG[0m [GROUP1] cache httpflv aac seq header. size:22 - gop_cache.go:91
+2021/10/08 15:44:56.987519 [22;34mDEBUG[0m reserve. newLen=69632(0, 0), need=(48678 -> 65536), cap=(4096 -> 69632) - stream.go:75
+2021/10/08 15:45:02.984481 [22;34mDEBUG[0m [NAZACONN2] lifecycle new connection. net.Conn=0xc0001be240, naza.Connection=0xc0001b6160 - connection.go:158
+2021/10/08 15:45:02.984555 [22;34mDEBUG[0m handshake simple mode. - handshake.go:237
+2021/10/08 15:45:02.984579 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C0+C1. - server_session.go:187
+2021/10/08 15:45:02.984596 [22;36m INFO[0m [RTMPPUBSUB2] > W Handshake S0+S1+S2. - server_session.go:189
+2021/10/08 15:45:02.985182 [22;36m INFO[0m [RTMPPUBSUB2] < R Handshake C2. - server_session.go:197
+2021/10/08 15:45:02.985384 [22;36m INFO[0m [RTMPPUBSUB2] < R connect(''). tcUrl=rtmp://127.0.0.1/ - server_session.go:344
+2021/10/08 15:45:02.985420 [22;36m INFO[0m [RTMPPUBSUB2] > W Window Acknowledgement Size 5000000. - server_session.go:348
+2021/10/08 15:45:02.985491 [22;36m INFO[0m [RTMPPUBSUB2] > W Set Peer Bandwidth. - server_session.go:353
+2021/10/08 15:45:02.985548 [22;36m INFO[0m [RTMPPUBSUB2] > W SetChunkSize 4096. - server_session.go:358
+2021/10/08 15:45:02.985600 [22;36m INFO[0m [RTMPPUBSUB2] > W _result('NetConnection.Connect.Success'). - server_session.go:363
+2021/10/08 15:45:02.986028 [22;36m INFO[0m [RTMPPUBSUB2] < R createStream(). - server_session.go:375
+2021/10/08 15:45:02.986052 [22;36m INFO[0m [RTMPPUBSUB2] > W _result(). - server_session.go:376
+2021/10/08 15:45:02.986407 [22;36m INFO[0m [RTMPPUBSUB2] < R play(''). - server_session.go:436
+2021/10/08 15:45:02.986533 [22;36m INFO[0m [RTMPPUBSUB2] > W onStatus('NetStream.Play.Start'). - server_session.go:446
+2021/10/08 15:45:02.986623 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] add SubSession into group. - group.go:363
+2021/10/08 15:46:17.002375 [22;34mDEBUG[0m [NAZACONN1] close once. err=NetworkIdleTimeout: No recent network activity. - connection.go:424
+2021/10/08 15:46:17.002571 [22;36m INFO[0m [RTMPPUBSUB1] rtmp loop done. err=NetworkIdleTimeout: No recent network activity. - server.go:86
+2021/10/08 15:46:17.002667 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB1] del rtmp PubSession from group. - group.go:673
+2021/10/08 15:46:17.002728 [22;36m INFO[0m [HLSMUXER1] lifecycle dispose hls muxer. - muxer.go:129
+2021/10/08 15:46:17.024379 [22;34mDEBUG[0m [NAZACONN2] close once. err=NetworkIdleTimeout: No recent network activity. - connection.go:424
+2021/10/08 15:46:17.024569 [22;36m INFO[0m [RTMPPUBSUB2] rtmp loop done. err=NetworkIdleTimeout: No recent network activity. - server.go:86
+2021/10/08 15:46:17.024644 [22;34mDEBUG[0m [GROUP1] [RTMPPUBSUB2] del rtmp SubSession from group. - group.go:706

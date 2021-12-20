@@ -13,7 +13,7 @@ import (
 func run(network, local, addr, rawurl, filename string,
 	tlsCfg *tls.Config, cfg *quic.Config,
 	buffer []byte, dst *os.File,
-	u *url.URL, rtmpType bool,
+	u *url.URL, rtmpType bool,protocol string,
 	quit chan os.Signal) {
 	defer func() {
 		close(quit)
@@ -47,7 +47,7 @@ func run(network, local, addr, rawurl, filename string,
 	case "https":
 		h2OverQUIC(network, local, addr, rawurl, tlsCfg, cfg, buffer, dst)
 	case "rtmp":
-		rtmpOverQUIC(network, local, addr, rawurl, tlsCfg, cfg, filename, rtmpType)
+		rtmpOverQUIC(network, local, addr, rawurl, tlsCfg, cfg, filename, rtmpType,protocol)
 
 	default:
 		fmt.Println("unsupport")

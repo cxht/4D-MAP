@@ -1,13 +1,16 @@
 package main
-import(
-	"sync"
+
+import (
 	"fmt"
-	"github.com/q191201771/lal/pkg/rtmp"
-	"github.com/q191201771/lal/pkg/logic"
+	"sync"
+	"flag"
 	"github.com/q191201771/lal/pkg/base"
+	"github.com/q191201771/lal/pkg/logic"
+	"github.com/q191201771/lal/pkg/rtmp"
 	//"github.com/q191201771/naza/pkg/nazalog"
 	//quic "github.com/lucas-clemente/quic-go"
 )
+
 type pushProxy struct {
 	isPushing   bool
 	pushSession *rtmp.PushSession
@@ -17,22 +20,24 @@ type pullProxy struct {
 	pullSession *rtmp.PullSession
 }
 
-
 type ServerManager struct {
-
-	rtmpServer    *rtmp.Server
-	exitChan      chan struct{}
+	rtmpServer *rtmp.Server
+	exitChan   chan struct{}
 
 	mutex    sync.Mutex
 	groupMap map[string]*logic.Group // TODO chef: with appName
 }
 
-
-func main(){
+func main() {
 	var (
+	
+		protocol     = flag.String("protocol", "quic", "network")
+		hasau	= flag.Bool("au", true, "has au?")
 		rtmpserver *rtmp.Server
-		addr string
+		addr       string
 	)
+	flag.Parse()
+	
 	conffile := "lalserver.conf.json"
 	addr = "0.0.0.0:1935"
 	logic.Init(conffile)
@@ -40,18 +45,23 @@ func main(){
 		groupMap: make(map[string]*logic.Group),
 		exitChan: make(chan struct{}),
 	}
-	rtmpserver = rtmp.NewServer(m,addr)
+	rtmpserver = rtmp.NewServer(m, addr,*protocol,*hasau)
+	fmt.Println(*protocol,*hasau)
+	
 	// if err := rtmpserver.Listen(); err != nil {
 	// 	return err
 	// }
-	rtmpserver.Listen()
+	if *hasau{
+		rtmpserver.ListenAU()
+		rtmpserver.RunLoopAU()
+	}
+	
 	// go func() {
 	// 	if err := rtmpserver.RunLoop(); err != nil {
 	// 		nazalog.Error(err)
 	// 	}
 	// }()
-	rtmpserver.RunLoop()
-
+	
 	rtmpserver.Listen()
 
 	rtmpserver.RunLoop()
@@ -63,7 +73,7 @@ func (sm *ServerManager) OnRTMPConnect(session *rtmp.ServerSession, opa rtmp.Obj
 	defer sm.mutex.Unlock()
 
 	var info base.RTMPConnectInfo
-	info.ServerID ="111"
+	info.ServerID = "111"
 	info.SessionID = session.UniqueKey()
 	//info.RemoteAddr = session.GetStat().RemoteAddr
 	if app, err := opa.FindString("app"); err == nil {
@@ -144,7 +154,7 @@ func (sm *ServerManager) OnNewRTMPPubSession(session *rtmp.ServerSession) bool {
 	// TODO chef: res值为false时，可以考虑不回调
 	// TODO chef: 每次赋值都逐个拼，代码冗余，考虑直接用ISession抽离一下代码
 	var info base.PubStartInfo
-	info.ServerID ="111"
+	info.ServerID = "111"
 	info.Protocol = base.ProtocolRTMP
 	info.URL = session.URL()
 	info.AppName = session.AppName()
@@ -157,7 +167,6 @@ func (sm *ServerManager) OnNewRTMPPubSession(session *rtmp.ServerSession) bool {
 	logic.HttpNotify.OnPubStart(info)
 	return res
 }
-
 
 // ServerObserver of rtmp.Server
 func (sm *ServerManager) OnDelRTMPSubSession(session *rtmp.ServerSession) {
@@ -182,7 +191,6 @@ func (sm *ServerManager) OnDelRTMPSubSession(session *rtmp.ServerSession) {
 	info.HasOutSession = group.HasOutSession()
 	logic.HttpNotify.OnSubStop(info)
 }
-
 
 func (sm *ServerManager) getOrCreateGroup(appName string, streamName string) *logic.Group {
 	group, exist := sm.groupMap[streamName]

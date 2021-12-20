@@ -3,11 +3,11 @@ package main
 import (
 	"crypto/tls"
 	//"strings"
-
+	//"fmt"
 	"github.com/lucas-clemente/quic-go"
 )
 
-func parseCfg(multi bool, serverName string, insecureSkipVerify bool) (*tls.Config, *quic.Config) {
+func parseCfg(multi bool, serverName string, insecureSkipVerify bool, sch string) (*tls.Config, *quic.Config) {
 	// var gquicvm = map[string]quic.VersionNumber{
 	// 	"39": quic.VersionGQUIC39,
 	// 	"43": quic.VersionGQUIC43,
@@ -23,12 +23,12 @@ func parseCfg(multi bool, serverName string, insecureSkipVerify bool) (*tls.Conf
 	// 		}
 	// 	}
 	// }
-
+	//fmt.Print("sch:%s",sch)
 	return &tls.Config{
 		ServerName:             serverName,
 		InsecureSkipVerify:     insecureSkipVerify,
-		SessionTicketsDisabled: true},&quic.Config{CreatePaths:   multi}
-		// NextProtos:             []string{"39", "43", "44"},
+		SessionTicketsDisabled: true}, &quic.Config{CreatePaths: multi, SchedulerName: sch}
+	// NextProtos:             []string{"39", "43", "44"},
 	//}, &quic.Config{Versions: versions}
-	
+
 }

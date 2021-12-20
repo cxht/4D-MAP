@@ -12,3 +12,5 @@ func printDNS(host string, ips []net.IP) {
 
 	fmt.Println()
 }
+
+

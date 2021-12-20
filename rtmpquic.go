@@ -3,7 +3,11 @@ package main
 import (
 	"crypto/tls"
 	"time"
-	//"fmt"
+	//"os"
+
+	"fmt"
+	"net"
+
 	"github.com/lucas-clemente/quic-go"
 	"github.com/q191201771/lal/pkg/remux"
 
@@ -14,6 +18,8 @@ import (
 	"github.com/q191201771/naza/pkg/nazalog"
 )
 
+
+
 func initLog() {
 	_ = nazalog.Init(func(option *nazalog.Option) {
 		option.AssertBehavior = nazalog.AssertFatal
@@ -23,13 +29,20 @@ func initLog() {
 func rtmpOverQUIC(network, local, addr, rawurl string,
 	tlsCfg *tls.Config, cfg *quic.Config,
 	//cfg *quic.Config,
-	filename string, rtmpType bool) {
+	filename string, rtmpType bool, protocol string) {
 	initLog()
 	defer nazalog.Sync()
-
-	rtmp.Network = network
 	var session quic.Session
-	rtmp.Dial = dial(local,&tls.Config{InsecureSkipVerify: true}, cfg, session)
+	if protocol == "tcp" {
+
+		rtmp.DialTCP = net.Dial
+	} else {
+		var session quic.Session
+		fmt.Println(local)
+		rtmp.Dial = dial(local, &tls.Config{InsecureSkipVerify: true}, cfg, session)
+	}
+	rtmp.Network = network
+
 	defer func() {
 		var err error
 		if session != nil {
@@ -37,14 +50,14 @@ func rtmpOverQUIC(network, local, addr, rawurl string,
 			//session.Close()
 		}
 	}()
-	
+
 	if rtmpType {
 		pullrtmp(rawurl, filename)
 		return
 	}
 
 	//pushrtmp("rtmp://1.116.187.145:1935/live/", filename)
-	pushrtmp(rawurl,filename)
+	pushrtmp(rawurl, filename, protocol)
 }
 
 func pullrtmp(url, filename string) {
@@ -78,14 +91,14 @@ func pullrtmp(url, filename string) {
 	nazalog.Debugf("< session.WaitChan. [%s] err=%+v", session.UniqueKey(), err)
 }
 
-func pushrtmp(url, filename string) {
-	tags, err := httpflv.ReadAllTagsFromFLVFile(filename)				//read flv file
+func pushrtmp(url, filename string, protocol string) {
+	tags, err := httpflv.ReadAllTagsFromFLVFile(filename) //read flv file
 	if err != nil || len(tags) == 0 {
 		nazalog.Fatalf("read tags from flv file failed. err=%+v", err)
 	}
 	nazalog.Infof("read tags from flv file succ. len of tags=%d", len(tags))
 
-	session := rtmp.NewPushSession(func(option *rtmp.PushSessionOption) {
+	session := rtmp.NewPushSession(protocol, func(option *rtmp.PushSessionOption) {
 		//option.PushTimeoutMS = 5000
 		//option.WriteAVTimeoutMS = 10000
 	})
@@ -109,19 +122,32 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 		hasTraceFirstTagTS bool
 		firstTagTS         uint32 // 所有轮第一个tag
 		firstTagTick       int64  // 所有轮第一个tag的物理发送时间
+		i int64
+		tagtype string
+		iskey string
+		keyframesum int
+		key_num int
+		unkeyframesum int
+		unkey_num int
+		audiosum int
+		audio_num int
 	)
 
 	// 1. 保证metadata只在最初发送一次
 	// 2. 多轮，时间戳会翻转，需要处理，让它线性增长
 
-	// 多轮，一个循环代表一次完整文件的发送
-	for {
+
+	// 多轮，一个循环代表一次完整文件的发送, cx tag: repeat play is not allowed
+	//for {
+
 		hasReadThisBaseTS = false
 
 		// 一轮，遍历文件的所有tag数据
+		//nazalog.Warnf("len:%d",len(tags))
+		//time.Sleep(9800000000)
 		for _, tag := range tags {
 			h := remux.FLVTagHeader2RTMPHeader(tag.Header)
-
+			//nazalog.Debugf("msg :%v",h)
 			// metadata只发送一次
 			if tag.IsMetadata() {
 				if totalBaseTS == 0 {
@@ -137,7 +163,6 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 
 			if hasReadThisBaseTS {
 				// 本轮非第一个tag
-
 				// 之前已经读到了这轮读文件的base值，ts要减去base
 				h.TimestampAbs = tag.Header.Timestamp - thisBaseTS + totalBaseTS
 			} else {
@@ -156,7 +181,8 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 			}
 
 			chunks := rtmp.Message2Chunks(tag.Raw[11:11+h.MsgLen], &h)
-
+	
+			i+=1 
 			if hasTraceFirstTagTS {
 				// 所有轮的非第一个tag
 
@@ -167,6 +193,7 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 				diffTS := h.TimestampAbs - firstTagTS
 				if diffTick < int64(diffTS) {
 					time.Sleep(time.Duration(int64(diffTS)-diffTick) * time.Millisecond)
+
 				}
 			} else {
 				// 所有轮的第一个tag
@@ -177,14 +204,95 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 				hasTraceFirstTagTS = true
 			}
 
+			/* cx add : normal proccess. differientiate frame types for statistic and delim*/
+			//nazalog.Infof("write size : %v",len(chunks))
+
+			iskey = " "
+			if tag.Header.Type == httpflv.TagTypeMetadata{
+				tagtype = "meta"
+				nazalog.Debugf("META DATA!")
+				// if err := session.Write(chunks); err != nil {
+				// 	nazalog.Errorf("write META error. err=%v", err)
+				// 	return
+				// }
+			}else if tag.Header.Type ==  httpflv.TagTypeVideo{
+				if tag.IsVideoKeyNALU(){
+					iskey = "key tag"
+					keyframesum += len(chunks)
+					key_num += 1
+					fmt.Println(iskey,len(chunks))
+
+					
+					//nazalog.Debugf("I frame %v", chunks)
+				} else{
+					unkeyframesum += len(chunks)
+					unkey_num += 1
+				
+					//nazalog.Debugf("p frame %v", chunks)
+				}
+				tagtype = "video"
+			}else if tag.Header.Type == httpflv.TagTypeAudio{
+				tagtype = "audio"
+				audiosum += len(chunks)
+				audio_num += 1
+				//nazalog.Debugf("a frame %v", chunks)
+
+			}else{
+				tagtype = "else"/*
+				if err := session.Write(chunks); err != nil {
+					nazalog.Errorf("write A_FRAME error. err=%v", err)
+					return
+				}*/
+				nazalog.Debugf("WHAT?")
+			}
+			//nazalog.Debugf(tagtype+iskey+" tag is splited into chunks\n",tag.Header.DataSize,len(tag.Raw),(len(chunks)))
+			nazalog.Debugf("type: %v %v",tagtype,(len(chunks)))
 			if err := session.Write(chunks); err != nil {
-				nazalog.Errorf("write data error. err=%v", err)
+				nazalog.Errorf("write  chunks error. err=%v", err)
 				return
 			}
 
+			
+			//cx add: for debugging
+			/*
+			//if(tagtype == "video" && iskey == "key tag"){
+			if(tagtype == "video" ){
+				if(iskey == "key tag"){								//cx for debug: video i tag: byte 0-255
+					time.Sleep(9800000000)
+					// for i:=0 ; i < len(chunks) ; i++{
+					// 	chunks[i] = byte(0)
+					// }
+					if err := session.Write(chunks); err != nil {
+						nazalog.Errorf("write data error. err=%v", err)
+					 	return
+					 }
+					time.Sleep(9800000000)
+					os.Exit(1)
+				}else{
+					for i:=0 ; i < len(chunks) ; i++{		//cx for debug: video p tag byte 00000
+						chunks[i] = byte(iter%255)
+					}
+					if err := session.Write(chunks); err != nil {
+						nazalog.Errorf("write data error. err=%v", err)
+						return
+					}
+				}
+				
+				//time.Sleep(9800000000)
+				
+			}else{
+				if err := session.Write(chunks); err != nil {
+					nazalog.Errorf("write data error. err=%v", err)
+					return
+				}
+				
+			}
+		//}*/
+			iskey = " "
+
 			prevTS = h.TimestampAbs
 		} // tags for loop
-
+		nazalog.Infof("mean key frame size : %d, num: %d \n mean p frame size : %d , num : %d\n, audio size: %d, num:%d", keyframesum/key_num, key_num, unkeyframesum/unkey_num, unkey_num ,audiosum/audio_num,audio_num)
 		totalBaseTS = prevTS + 1
-	}
+	//}
 }

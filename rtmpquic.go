@@ -33,13 +33,15 @@ func rtmpOverQUIC(network, local, addr, rawurl string,
 	initLog()
 	defer nazalog.Sync()
 	var session quic.Session
+	nazalog.Debugf("protocol = %s",protocol)
 	if protocol == "tcp" {
 
 		rtmp.DialTCP = net.Dial
 	} else {
-		var session quic.Session
+		//var session quic.Session
 		fmt.Println(local)
 		rtmp.Dial = dial(local, &tls.Config{InsecureSkipVerify: true}, cfg, session)
+		nazalog.Debugf("[monitor]sess :%v", session)
 	}
 	rtmp.Network = network
 
@@ -93,6 +95,8 @@ func pullrtmp(url, filename string) {
 
 func pushrtmp(url, filename string, protocol string) {
 	tags, err := httpflv.ReadAllTagsFromFLVFile(filename) //read flv file
+	t := float64(time.Now().UnixNano()/1000000)
+	now := float64(time.Now().UnixNano()/1000000)
 	if err != nil || len(tags) == 0 {
 		nazalog.Fatalf("read tags from flv file failed. err=%+v", err)
 	}
@@ -107,8 +111,9 @@ func pushrtmp(url, filename string, protocol string) {
 		nazalog.Errorf("push failed. err=%v", err)
 		return
 	}
-
-	nazalog.Infof("push succ. url=%s", url)
+	now = float64(time.Now().UnixNano() / 1000000)
+	
+	nazalog.Infof("push succ. url=%s, handshaketime:%f,", url,now - t )
 
 	loopPush(tags, session)
 }
@@ -122,8 +127,9 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 		hasTraceFirstTagTS bool
 		firstTagTS         uint32 // 所有轮第一个tag
 		firstTagTick       int64  // 所有轮第一个tag的物理发送时间
+		lastTagTick			int64 //cx add for checking fps
 		i int64
-		tagtype string
+		//tagtype string
 		iskey string
 		keyframesum int
 		key_num int
@@ -131,6 +137,17 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 		unkey_num int
 		audiosum int
 		audio_num int
+
+		unkeybehindlastI int
+		thrownum	int
+
+		meanISize float64
+		meanGOPSize float64
+
+		curgop int
+		curI  int
+
+		//setcwndflag bool
 	)
 
 	// 1. 保证metadata只在最初发送一次
@@ -152,7 +169,7 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 			if tag.IsMetadata() {
 				if totalBaseTS == 0 {
 					h.TimestampAbs = 0
-					chunks := rtmp.Message2Chunks(tag.Raw[11:11+h.MsgLen], &h)
+					chunks := rtmp.Message2Chunks(tag.Raw[11:11+h.MsgLen], &h, false)
 					if err := session.Write(chunks); err != nil {
 						nazalog.Errorf("write data error. err=%v", err)
 						return
@@ -179,9 +196,14 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 				h.TimestampAbs = prevTS
 				nazalog.Errorf("this tag timestamp less than prev timestamp. h.TimestampAbs=%d, prevTS=%d", h.TimestampAbs, prevTS)
 			}
-
-			chunks := rtmp.Message2Chunks(tag.Raw[11:11+h.MsgLen], &h)
-	
+			var mark bool
+			
+			if((unkeybehindlastI < 104) && unkeybehindlastI > 90 && (key_num == 3)) || ((unkeybehindlastI < 104) && unkeybehindlastI > 95 && (key_num == 4)) {
+				mark = false
+			}else{
+				mark = false
+			}
+			chunks := rtmp.Message2Chunks(tag.Raw[11:11+h.MsgLen], &h, mark)
 			i+=1 
 			if hasTraceFirstTagTS {
 				// 所有轮的非第一个tag
@@ -189,18 +211,28 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 				// 当前距离第一个tag的物理发送时间，以及距离第一个tag的时间戳
 				// 如果物理时间短，就睡眠相应的时间
 				n := time.Now().UnixNano() / 1000000
+
 				diffTick := n - firstTagTick
 				diffTS := h.TimestampAbs - firstTagTS
-				if diffTick < int64(diffTS) {
-					time.Sleep(time.Duration(int64(diffTS)-diffTick) * time.Millisecond)
-
+				
+				if tag.Header.Type ==  httpflv.TagTypeVideo{
+					gapTick := n - lastTagTick
+					nazalog.Debugf("\nchunk:%v chunk-dur:%vms, timestamp:%v",key_num+unkey_num,gapTick,  tag.Header.Timestamp)
+					lastTagTick = n
 				}
+
+				if diffTick < int64(diffTS) {
+					//time.Sleep(time.Duration(int64(diffTS)-diffTick) * time.Millisecond)
+					time.Sleep((time.Duration(int64(diffTS)-diffTick) )* time.Millisecond)
+				}
+				//time.Sleep(80* time.Millisecond)
 			} else {
 				// 所有轮的第一个tag
-
+				nazalog.Debugf("Livestreaming start sending tick:%v", time.Now().UnixNano()/ 1000)
 				// 记录所有轮的第一个tag的物理发送时间，以及数据的时间戳
 				firstTagTick = time.Now().UnixNano() / 1000000
 				firstTagTS = h.TimestampAbs
+				lastTagTick = firstTagTick
 				hasTraceFirstTagTS = true
 			}
 
@@ -208,8 +240,16 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 			//nazalog.Infof("write size : %v",len(chunks))
 
 			iskey = " "
+			
+			// flag, limit := session.ReturnMonitor()
+			// sch := session.ReturnSchName()
+			flag := false
+			limit := 0
+			sch := ""
+			nazalog.Debugf("Return monitor from  scheduler : %v, bw flag : %v, limit : %v",sch,flag, limit)
+			curframesize := len(chunks)
 			if tag.Header.Type == httpflv.TagTypeMetadata{
-				tagtype = "meta"
+				//tagtype = "meta"
 				nazalog.Debugf("META DATA!")
 				// if err := session.Write(chunks); err != nil {
 				// 	nazalog.Errorf("write META error. err=%v", err)
@@ -218,27 +258,51 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 			}else if tag.Header.Type ==  httpflv.TagTypeVideo{
 				if tag.IsVideoKeyNALU(){
 					iskey = "key tag"
-					keyframesum += len(chunks)
+					//compute mean value
+					if(key_num != 0){
+						meanGOPSize = float64( (keyframesum + unkeyframesum) / key_num )
+						meanISize = float64( keyframesum / key_num)
+					}
+					
+					keyframesum += curframesize
 					key_num += 1
 					fmt.Println(iskey,len(chunks))
+					unkeybehindlastI = 0
+					curgop = curframesize
+					curI = curframesize
 
 					
-					//nazalog.Debugf("I frame %v", chunks)
+					nazalog.Debugf("%v I frame %v", key_num, curframesize)
 				} else{
-					unkeyframesum += len(chunks)
+					unkeyframesum += curframesize
+					curgop += curframesize
 					unkey_num += 1
-				
-					//nazalog.Debugf("p frame %v", chunks)
+					unkeybehindlastI += 1
+					resideSizeInGOP := meanGOPSize - float64(curgop)
+					IFrameisComing := (float64(curI) >= meanISize && resideSizeInGOP < 0) || (float64(curI) < meanISize && resideSizeInGOP < (meanISize - float64(curI)))
+					nazalog.Infof("IframeComing %v, resideSizeInGOP %v, meanGOP %v, meanI %v, curgop %v, curI %v",IFrameisComing,resideSizeInGOP, meanGOPSize, meanISize, curgop, curI)
+					nazalog.Infof("UNKEYBEHIND %v,limit:%v",unkeybehindlastI,limit)
+					
+
+					if flag == true && (((sch == "moooko") && IFrameisComing && curframesize <= 7500 && key_num > 10) || ((sch == "moooko") &&curframesize <= 1800 && key_num > 15)){ // BBB
+					//if flag == true && (((sch == "moooko") && IFrameisComing && curframesize <= 7000) || ((sch == "moooko") && curframesize <= 2500)){	
+						thrownum += 1
+						//nazalog.Infof("\n\n\nthrow %v th p frame: %v, size: %v, \n\n\n\n",thrownum, unkeybehindlastI, len(chunks))
+						limit -= len(chunks)
+						//continue
+					}
+					nazalog.Debugf("%v p frame %v", unkeybehindlastI, len(chunks))
 				}
-				tagtype = "video"
+				//tagtype = "video"
 			}else if tag.Header.Type == httpflv.TagTypeAudio{
-				tagtype = "audio"
+				//tagtype = "audio"
 				audiosum += len(chunks)
 				audio_num += 1
-				//nazalog.Debugf("a frame %v", chunks)
+				nazalog.Debugf("a frame %v", len(chunks))
 
 			}else{
-				tagtype = "else"/*
+				//tagtype = "else"
+				/*
 				if err := session.Write(chunks); err != nil {
 					nazalog.Errorf("write A_FRAME error. err=%v", err)
 					return
@@ -246,12 +310,25 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 				nazalog.Debugf("WHAT?")
 			}
 			//nazalog.Debugf(tagtype+iskey+" tag is splited into chunks\n",tag.Header.DataSize,len(tag.Raw),(len(chunks)))
-			nazalog.Debugf("type: %v %v",tagtype,(len(chunks)))
+			//nazalog.Debugf(" %v\n",chunks)
+			// if tag.Header.Timestamp == 39433{
+			// 	nazalog.Debugf("closecwnd = true")
+			// 	session.SetCWNDFlag(true)
+			// 	setcwndflag = true
+			// }else if (tag.Header.Timestamp >= 39467 && setcwndflag == true){
+			// 	nazalog.Debugf("closecwnd = false")
+			// 	session.SetCWNDFlag(false)
+			// 	setcwndflag=false
+			// }
+
 			if err := session.Write(chunks); err != nil {
 				nazalog.Errorf("write  chunks error. err=%v", err)
 				return
 			}
-
+			//nazalog.Debugf("write len %v",len(chunks))
+			// if(tagtype == "video"&&  iskey =="key tag" ){
+			// 	os.Exit(-1)
+			// }
 			
 			//cx add: for debugging
 			/*
@@ -292,7 +369,11 @@ func loopPush(tags []httpflv.Tag, session *rtmp.PushSession) {
 
 			prevTS = h.TimestampAbs
 		} // tags for loop
-		nazalog.Infof("mean key frame size : %d, num: %d \n mean p frame size : %d , num : %d\n, audio size: %d, num:%d", keyframesum/key_num, key_num, unkeyframesum/unkey_num, unkey_num ,audiosum/audio_num,audio_num)
+		nazalog.Infof("mean key frame size : %d, num: %d \n mean p frame size : %d , num : %d\n", keyframesum/key_num, key_num, unkeyframesum/unkey_num, unkey_num)
 		totalBaseTS = prevTS + 1
+
+		
+		time.Sleep(1000000* time.Millisecond)
+		
 	//}
 }

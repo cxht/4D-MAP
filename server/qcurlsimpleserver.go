@@ -55,16 +55,16 @@ func main() {
 		rtmpserver.ListenAU()
 		rtmpserver.RunLoopAU()
 	}
+	rtmpserver.Listen()
+
+	rtmpserver.RunLoop()
 	
+		
 	// go func() {
 	// 	if err := rtmpserver.RunLoop(); err != nil {
 	// 		nazalog.Error(err)
 	// 	}
 	// }()
-	
-	rtmpserver.Listen()
-
-	rtmpserver.RunLoop()
 }
 
 // ServerObserver of rtmp.Server

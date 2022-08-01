@@ -83,9 +83,7 @@ func dial(local string, tlsCfg *tls.Config,
 		if err != nil {
 			return nil, err
 		}
-
 		outsession = session
-
 		stream, err := session.OpenStreamSync()
 		//stream.SetLocalAddr(localAddr)
 		//stream.SetRemoteAddr(addr)

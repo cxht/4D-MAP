@@ -7,7 +7,7 @@ import (
 	"github.com/lucas-clemente/quic-go"
 )
 
-func parseCfg(multi bool, serverName string, insecureSkipVerify bool, sch string) (*tls.Config, *quic.Config) {
+func parseCfg(multi bool, serverName string, insecureSkipVerify bool, sch string, red bool, iprio bool) (*tls.Config, *quic.Config) {
 	// var gquicvm = map[string]quic.VersionNumber{
 	// 	"39": quic.VersionGQUIC39,
 	// 	"43": quic.VersionGQUIC43,
@@ -27,7 +27,7 @@ func parseCfg(multi bool, serverName string, insecureSkipVerify bool, sch string
 	return &tls.Config{
 		ServerName:             serverName,
 		InsecureSkipVerify:     insecureSkipVerify,
-		SessionTicketsDisabled: true}, &quic.Config{CreatePaths: multi, SchedulerName: sch}
+		SessionTicketsDisabled: true}, &quic.Config{CreatePaths: multi, SchedulerName: sch, GenerateRedundancy: red, IPriority: iprio}
 	// NextProtos:             []string{"39", "43", "44"},
 	//}, &quic.Config{Versions: versions}
 

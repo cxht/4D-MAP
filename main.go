@@ -17,6 +17,8 @@ func main() {
 		protocol = flag.String("protocol","quic","use QUIC or TCP to transport")
 		multi	= flag.Bool("multi", true, "whether to use multipath protocol")
 		sch = flag.String("sch","rr","select MPQUIC scheduler")
+		red = flag.Bool("red", false, "whether to generate redundancy")
+		iprio = flag.Bool("iprio", false, "whether to generate redundancy")
 		local       = flag.String("bind", "", "bind local ip")
 		name        = flag.String("file", "xu.flv", "specify i/o flv file")
 		buffer      = flag.Int("buffer", 102400, "buffer size in byte")
@@ -25,7 +27,7 @@ func main() {
 	)
 
 	flag.Parse()
-	fmt.Println(*multi,*sch,*name,*rtmpType)
+	fmt.Println(*multi,*sch,*name,*rtmpType,*red, *iprio)
 	rawurl := os.Args[len(os.Args)-1]
 	//rawurl = "rtmp://127.0.0.1/"
 	//*protocol = "tcp"
@@ -63,7 +65,7 @@ func main() {
 		*sni = u.Host
 	}
 
-	tlsCfg, cfg := parseCfg(*multi, *sni, *skip, *sch)
+	tlsCfg, cfg := parseCfg(*multi, *sni, *skip, *sch, *red, *iprio)
 
 	appBuffer := make([]byte, *buffer)
 

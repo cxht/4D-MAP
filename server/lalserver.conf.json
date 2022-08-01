@@ -20,7 +20,7 @@
     "gop_num": 0
   },
   "hls": {
-    "enable": true,
+    "enable": false,
     "enable_https": false,
     "url_pattern": "/hls/",
     "out_path": "/tmp/lal/hls/",
@@ -39,7 +39,7 @@
     "addr": ":5544"
   },
   "record": {
-    "enable_flv": false,
+    "enable_flv": true,
     "flv_out_path": "/tmp/lal/flv/",
     "enable_mpegts": false,
     "mpegts_out_path": "/tmp/lal/mpegts"

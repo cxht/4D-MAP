@@ -1,5 +1,5 @@
-# MPS
-
+# 3D-MAP
+Live streaming framework based on RTMP over MPQUIC
 ## Usage
 
 ```sh
